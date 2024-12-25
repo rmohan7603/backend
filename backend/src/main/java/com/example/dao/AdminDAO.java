@@ -24,7 +24,7 @@ public class AdminDAO {
                 }
             }
         }
-        return null; // Return null if no password found for the given username
+        return null;
     }
 
     public int getAdminIdByUsername(String username) throws SQLException {
@@ -37,6 +37,6 @@ public class AdminDAO {
                 }
             }
         }
-        return -1; // Return -1 if admin_id not found for the given username
+        return -1;
     }
 }

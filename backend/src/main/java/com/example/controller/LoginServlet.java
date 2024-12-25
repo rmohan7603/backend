@@ -28,9 +28,8 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            // Authenticate user and retrieve adminId
             int adminId = adminService.authenticateAndGetAdminId(username, password);
-            if (adminId > 0) { // Successful authentication
+            if (adminId > 0) {
                 HttpSession session = request.getSession();
                 session.setAttribute("adminId", adminId);
                 session.setAttribute("username", username);

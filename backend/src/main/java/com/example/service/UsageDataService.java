@@ -30,64 +30,61 @@ public class UsageDataService {
         List<UsageData> dataList = CSVProcessor.parseCSV(fileContent);
         List<UsageData> duplicates = usageDataDAO.findDuplicates(dataList);
 
-        // Simulate admin decision logic
         List<UsageData> insertList = new ArrayList<>();
         List<UsageData> updateList = new ArrayList<>();
         for (UsageData data : dataList) {
             if (duplicates.contains(data)) {
-                // Simulate admin choice: Update duplicates
-                updateList.add(data);
+            	//Uncomment if admin wants to update
+            	//Comment if admin wants to discard
+                //updateList.add(data);
             } else {
                 insertList.add(data);
             }
         }
 
         usageDataDAO.bulkInsertOrUpdate(insertList, updateList);
-
-        // Record metadata without file size
         uploadMetadataDAO.recordUpload(adminId, fileName, insertList.size(), updateList.size(), duplicates.size() - updateList.size());
     }
 
     public List<ChartData> getChartData(String filter) throws ClassNotFoundException {
         System.out.println(filter);
-    	String query = "SELECT user_id, SUM(usage_value) AS total_usage FROM usage_table WHERE 1=1 ";
+    	String query = "select user_id, sum(usage_value) as total_usage from usage_table where 1=1 ";
         long currentEpoch = System.currentTimeMillis() / 1000; // Current time in epoch seconds
 
         switch (filter.toLowerCase()) {
             case "today":
-                query += "AND epoch >= " + getStartOfTodayEpoch();
+                query += "and epoch >= " + getStartOfTodayEpoch();
                 break;
             case "yesterday":
-                query += "AND epoch >= " + getStartOfYesterdayEpoch() + " AND epoch < " + getStartOfTodayEpoch();
+                query += "and epoch >= " + getStartOfYesterdayEpoch() + " and epoch < " + getStartOfTodayEpoch();
                 break;
             case "last24hours":
-                query += "AND epoch >= " + (currentEpoch - 86400); // 24 * 60 * 60
+                query += "and epoch >= " + (currentEpoch - 86400); // 24 * 60 * 60
                 break;
             case "thisweek":
-                query += "AND epoch >= " + getStartOfThisWeekEpoch();
+                query += "and epoch >= " + getStartOfThisWeekEpoch();
                 break;
             case "lastweek":
-                query += "AND epoch >= " + getStartOfLastWeekEpoch() + " AND epoch < " + getStartOfThisWeekEpoch();
+                query += "and epoch >= " + getStartOfLastWeekEpoch() + " and epoch < " + getStartOfThisWeekEpoch();
                 break;
             case "thismonth":
-                query += "AND epoch >= " + getStartOfThisMonthEpoch();
+                query += "and epoch >= " + getStartOfThisMonthEpoch();
                 break;
             case "lastmonth":
-                query += "AND epoch >= " + getStartOfLastMonthEpoch() + " AND epoch < " + getStartOfThisMonthEpoch();
+                query += "and epoch >= " + getStartOfLastMonthEpoch() + " and epoch < " + getStartOfThisMonthEpoch();
                 break;
             case "thisyear":
-                query += "AND epoch >= " + getStartOfThisYearEpoch();
+                query += "and epoch >= " + getStartOfThisYearEpoch();
                 break;
             case "lastyear":
-                query += "AND epoch >= " + getStartOfLastYearEpoch() + " AND epoch < " + getStartOfThisYearEpoch();
+                query += "and epoch >= " + getStartOfLastYearEpoch() + " and epoch < " + getStartOfThisYearEpoch();
                 break;
             case "total":
             default:
-                // No additional conditions
                 break;
         }
 
-        query += " GROUP BY user_id";
+        query += " group by user_id";
 
         List<ChartData> chartDataList = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
@@ -98,7 +95,6 @@ public class UsageDataService {
                 int userId = resultSet.getInt("user_id");
                 String totalUsageStr = resultSet.getString("total_usage");
 
-                // Check if total_usage can be parsed to an integer or handle it as needed
                 try {
                     if (totalUsageStr != null && !totalUsageStr.isEmpty()) {
                         int totalUsage = Integer.parseInt(totalUsageStr);

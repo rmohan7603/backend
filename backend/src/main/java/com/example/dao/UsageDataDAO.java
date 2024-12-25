@@ -16,7 +16,7 @@ public class UsageDataDAO {
 
     public List<UsageData> findDuplicates(List<UsageData> dataList) throws SQLException {
         List<UsageData> duplicates = new ArrayList<>();
-        String query = "SELECT user_id, epoch FROM usage_table WHERE user_id = ? AND epoch = ?";
+        String query = "select user_id, epoch from usage_table where user_id = ? and epoch = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             for (UsageData data : dataList) {
                 stmt.setString(1, data.getUserId());
@@ -32,8 +32,8 @@ public class UsageDataDAO {
     }
 
     public void bulkInsertOrUpdate(List<UsageData> insertList, List<UsageData> updateList) throws SQLException {
-        String insertQuery = "INSERT INTO usage_table (user_id, usage_value, epoch) VALUES (?, ?, ?)";
-        String updateQuery = "UPDATE usage_table SET usage_value = ? WHERE user_id = ? AND epoch = ?";
+        String insertQuery = "insert into usage_table (user_id, usage_value, epoch) values (?, ?, ?)";
+        String updateQuery = "update usage_table SET usage_value = ? WHERE user_id = ? and epoch = ?";
 
         try {
             connection.setAutoCommit(false);

@@ -26,7 +26,6 @@ public class ChartDataServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Parse JSON request body to get filter
         StringBuilder jsonBuffer = new StringBuilder();
         String line;
         try (BufferedReader reader = request.getReader()) {
@@ -42,7 +41,7 @@ public class ChartDataServlet extends HttpServlet {
 
     private void processRequest(String filter, HttpServletResponse response) throws IOException {
         if (filter == null || filter.isEmpty()) {
-            filter = "total"; // Default filter
+            filter = "total";
         }
 
         try {

@@ -28,7 +28,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Integer adminId = (Integer) session.getAttribute("adminId"); // Assume adminId is stored in the session
+        Integer adminId = (Integer) session.getAttribute("adminId");
         System.out.println(adminId);
         if (adminId == null) {
             response.sendRedirect("login.jsp");
@@ -46,7 +46,11 @@ public class UploadServlet extends HttpServlet {
             if (filePart.getName().equals("files") && filePart.getSize() > 0) {
                 try (InputStream fileContent = filePart.getInputStream()) {
                     usageDataService.processCSV(fileContent, adminId, filePart.getSubmittedFileName());
+                    session.setAttribute("message", "File Upload Success");
+                    session.setAttribute("messageType", "1");
                 } catch (Exception e) {
+                	session.setAttribute("message", "File Upload Failed");
+                	session.setAttribute("messageType", "-1");
                     response.setStatus(500);
                     response.getWriter().write("Error processing file: " + e.getMessage());
                     return;

@@ -194,15 +194,14 @@
     </form>
     
    <% 
-        // Display success or error message from session
         String message = (String) session.getAttribute("message");
         String messageType = (String) session.getAttribute("messageType");
         if (message != null) {
             String messageClass = "success";
-            String icon = "✔️"; // Default success icon
+            String icon = "✔️";
             if ("-1".equals(messageType)) {
                 messageClass = "error";
-                icon = "❌"; // Error icon
+                icon = "❌";
             }
     %>
     <div id="statusMessage" class="message-box <%= messageClass %>">
@@ -237,11 +236,11 @@
     
     
     let currentGraphType = 'line';
-    let cachedData = null; // Cache for the current filter's data
-    let currentFilter = 'total'; // Tracks the current filter applied
+    let cachedData = null;
+    let currentFilter = 'total';
 
     function loadDefaultChart() {
-        loadFilteredChart('total'); // Load 'total' filter data on page load
+        loadFilteredChart('total');
     }
 
     function loadFilteredChart(filter) {
@@ -259,7 +258,7 @@
         })
             .then(response => response.json())
             .then(data => {
-                cachedData = data; // Cache the data
+                cachedData = data;
                 renderChart(data);
             })
             .catch(error => {
