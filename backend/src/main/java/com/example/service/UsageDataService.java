@@ -6,6 +6,8 @@ import com.example.model.ChartData;
 import com.example.model.UsageData;
 import com.example.util.CSVProcessor;
 import com.example.util.DatabaseConnection;
+import com.example.util.QueryLoader;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,14 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsageDataService {
-	private UsageDataDAO usageDataDAO;
+    private UsageDataDAO usageDataDAO;
     private UploadMetadataDAO uploadMetadataDAO;
 
     public UsageDataService() throws SQLException, ClassNotFoundException {
         usageDataDAO = new UsageDataDAO();
         uploadMetadataDAO = new UploadMetadataDAO();
     }
-
+    
     public void processCSV(InputStream fileContent, int adminId, String fileName) throws Exception {
         List<UsageData> dataList = CSVProcessor.parseCSV(fileContent);
         List<UsageData> duplicates = usageDataDAO.findDuplicates(dataList);
@@ -41,75 +43,87 @@ public class UsageDataService {
                 insertList.add(data);
             }
         }
-
+        
+        if(updateList.size()!=0) {
+        	//add html code
+        }
+        
         usageDataDAO.bulkInsertOrUpdate(insertList, updateList);
         uploadMetadataDAO.recordUpload(adminId, fileName, insertList.size(), updateList.size(), duplicates.size() - updateList.size());
     }
 
     public List<ChartData> getChartData(String filter) throws ClassNotFoundException {
-        System.out.println(filter);
-    	String query = "select user_id, sum(usage_value) as total_usage from usage_table where 1=1 ";
-        long currentEpoch = System.currentTimeMillis() / 1000; // Current time in epoch seconds
-
-        switch (filter.toLowerCase()) {
-            case "today":
-                query += "and epoch >= " + getStartOfTodayEpoch();
-                break;
-            case "yesterday":
-                query += "and epoch >= " + getStartOfYesterdayEpoch() + " and epoch < " + getStartOfTodayEpoch();
-                break;
-            case "last24hours":
-                query += "and epoch >= " + (currentEpoch - 86400); // 24 * 60 * 60
-                break;
-            case "thisweek":
-                query += "and epoch >= " + getStartOfThisWeekEpoch();
-                break;
-            case "lastweek":
-                query += "and epoch >= " + getStartOfLastWeekEpoch() + " and epoch < " + getStartOfThisWeekEpoch();
-                break;
-            case "thismonth":
-                query += "and epoch >= " + getStartOfThisMonthEpoch();
-                break;
-            case "lastmonth":
-                query += "and epoch >= " + getStartOfLastMonthEpoch() + " and epoch < " + getStartOfThisMonthEpoch();
-                break;
-            case "thisyear":
-                query += "and epoch >= " + getStartOfThisYearEpoch();
-                break;
-            case "lastyear":
-                query += "and epoch >= " + getStartOfLastYearEpoch() + " and epoch < " + getStartOfThisYearEpoch();
-                break;
-            case "total":
-            default:
-                break;
+        System.out.println("Filter: " + filter);
+        
+        String query = QueryLoader.getQuery("getChartDataBase");
+        long currentEpoch = System.currentTimeMillis() / 1000;
+        
+        long[] timeRange = getTimeRange(filter, currentEpoch);
+        
+        if (timeRange == null) {
+            throw new IllegalArgumentException("Invalid time filter specified.");
         }
+        
+        query += " ";
+        query += QueryLoader.getQuery("getChartDataGroupBy");
 
-        query += " group by user_id";
+        System.out.println("Executing query: " + query);
 
         List<ChartData> chartDataList = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            while (resultSet.next()) {
-                int userId = resultSet.getInt("user_id");
-                String totalUsageStr = resultSet.getString("total_usage");
+            statement.setLong(1, timeRange[0]); // start time
+            statement.setLong(2, timeRange[1]); // end time
 
-                try {
-                    if (totalUsageStr != null && !totalUsageStr.isEmpty()) {
-                        int totalUsage = Integer.parseInt(totalUsageStr);
-                        chartDataList.add(new ChartData(userId, totalUsage));
-                    } else {
-                        System.out.println("Invalid usage value for user: " + userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int userId = resultSet.getInt("user_id");
+                    String totalUsageStr = resultSet.getString("total_usage");
+
+                    try {
+                        if (totalUsageStr != null && !totalUsageStr.isEmpty()) {
+                            int totalUsage = Integer.parseInt(totalUsageStr);
+                            chartDataList.add(new ChartData(userId, totalUsage));
+                        } else {
+                            System.out.println("Invalid usage value for user: " + userId);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Failed to parse usage value for user " + userId + ": " + totalUsageStr);
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Failed to parse usage value for user " + userId + ": " + totalUsageStr);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return chartDataList;
+    }
+
+    private long[] getTimeRange(String filter, long currentEpoch) {
+        switch (filter.toLowerCase()) {
+            case "today":
+                return new long[] {getStartOfTodayEpoch(), currentEpoch};
+            case "yesterday":
+                return new long[] {getStartOfYesterdayEpoch(), getStartOfTodayEpoch()};
+            case "last24hours":
+                return new long[] {currentEpoch - 86400, currentEpoch};
+            case "thisweek":
+                return new long[] {getStartOfThisWeekEpoch(), currentEpoch};
+            case "lastweek":
+                return new long[] {getStartOfLastWeekEpoch(), getStartOfThisWeekEpoch()};
+            case "thismonth":
+                return new long[] {getStartOfThisMonthEpoch(), currentEpoch};
+            case "lastmonth":
+                return new long[] {getStartOfLastMonthEpoch(), getStartOfThisMonthEpoch()};
+            case "thisyear":
+                return new long[] {getStartOfThisYearEpoch(), currentEpoch};
+            case "lastyear":
+                return new long[] {getStartOfLastYearEpoch(), getStartOfThisYearEpoch()};
+            case "total":
+            default:
+                return new long[] {0, currentEpoch};
+        }
     }
 
     private long getStartOfTodayEpoch() {

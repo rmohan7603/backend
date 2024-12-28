@@ -2,6 +2,7 @@ package com.example.dao;
 
 import com.example.model.UsageData;
 import com.example.util.DatabaseConnection;
+import com.example.util.QueryLoader;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class UsageDataDAO {
 
     public List<UsageData> findDuplicates(List<UsageData> dataList) throws SQLException {
         List<UsageData> duplicates = new ArrayList<>();
-        String query = "select user_id, epoch from usage_table where user_id = ? and epoch = ?";
+        String query = QueryLoader.getQuery("find_duplicates");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             for (UsageData data : dataList) {
                 stmt.setString(1, data.getUserId());
@@ -32,8 +33,8 @@ public class UsageDataDAO {
     }
 
     public void bulkInsertOrUpdate(List<UsageData> insertList, List<UsageData> updateList) throws SQLException {
-        String insertQuery = "insert into usage_table (user_id, usage_value, epoch) values (?, ?, ?)";
-        String updateQuery = "update usage_table SET usage_value = ? WHERE user_id = ? and epoch = ?";
+        String insertQuery = QueryLoader.getQuery("bulk_insert");
+        String updateQuery = QueryLoader.getQuery("bulk_update");
 
         try {
             connection.setAutoCommit(false);

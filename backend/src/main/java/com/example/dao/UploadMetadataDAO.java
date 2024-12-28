@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.example.util.DatabaseConnection;
+import com.example.util.QueryLoader;
 
 public class UploadMetadataDAO {
     private Connection connection;
@@ -14,8 +15,7 @@ public class UploadMetadataDAO {
     }
 
     public void recordUpload(int adminId, String fileName, int recordsInserted, int recordsUpdated, int recordsDiscarded) throws SQLException {
-        String query = "insert into upload_metadata (admin_id, file_name, records_inserted, records_updated, records_discarded, status) " +
-                "values (?, ?, ?, ?, ?, ?)";
+        String query = QueryLoader.getQuery("recordUpload");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, adminId);
             stmt.setString(2, fileName);

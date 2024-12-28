@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.example.util.DatabaseConnection;
+import com.example.util.QueryLoader;
 
 public class AdminDAO {
     private Connection connection;
@@ -15,7 +16,7 @@ public class AdminDAO {
     }
 
     public String getPasswordByUsername(String username) throws SQLException {
-        String query = "SELECT password FROM admin WHERE username = ?";
+        String query = QueryLoader.getQuery("getPasswordByUsername");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -28,7 +29,7 @@ public class AdminDAO {
     }
 
     public int getAdminIdByUsername(String username) throws SQLException {
-        String query = "SELECT admin_id FROM admin WHERE username = ?";
+        String query = QueryLoader.getQuery("getAdminIdByUsername");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {

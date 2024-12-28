@@ -35,4 +35,8 @@ public class DatabaseConnection {
 
         return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
     }
+    
+    public static String getDbType() {
+        return properties.getProperty("db.type");
+    }
 }
