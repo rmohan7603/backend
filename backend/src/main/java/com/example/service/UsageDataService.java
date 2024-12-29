@@ -28,7 +28,7 @@ public class UsageDataService {
         uploadMetadataDAO = new UploadMetadataDAO();
     }
     
-    public void processCSV(InputStream fileContent, int adminId, String fileName) throws Exception {
+    public void processCSV(InputStream fileContent, int adminId, String fileName, String action) throws Exception {
         List<UsageData> dataList = CSVProcessor.parseCSV(fileContent);
         List<UsageData> duplicates = usageDataDAO.findDuplicates(dataList);
 
@@ -36,17 +36,13 @@ public class UsageDataService {
         List<UsageData> updateList = new ArrayList<>();
         for (UsageData data : dataList) {
             if (duplicates.contains(data)) {
-            	//Uncomment if admin wants to update
-            	//Comment if admin wants to discard
-                //updateList.add(data);
+                updateList.add(data);
             } else {
                 insertList.add(data);
             }
         }
-        
-        if(updateList.size()!=0) {
-        	//add html code
-        }
+        if(action.equals("skip"))
+        	updateList.clear();
         
         usageDataDAO.bulkInsertOrUpdate(insertList, updateList);
         uploadMetadataDAO.recordUpload(adminId, fileName, insertList.size(), updateList.size(), duplicates.size() - updateList.size());

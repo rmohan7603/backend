@@ -35,6 +35,9 @@ public class UploadServlet extends HttpServlet {
             return;
         }
 
+        String duplicateAction = request.getParameter("duplicateAction");
+        System.out.println(duplicateAction);
+        
         Collection<Part> fileParts = request.getParts();
         if (fileParts.isEmpty()) {
             response.setStatus(400);
@@ -45,7 +48,7 @@ public class UploadServlet extends HttpServlet {
         for (Part filePart : fileParts) {
             if (filePart.getName().equals("files") && filePart.getSize() > 0) {
                 try (InputStream fileContent = filePart.getInputStream()) {
-                    usageDataService.processCSV(fileContent, adminId, filePart.getSubmittedFileName());
+                    usageDataService.processCSV(fileContent, adminId, filePart.getSubmittedFileName(),duplicateAction);
                     session.setAttribute("message", "File Upload Success");
                     session.setAttribute("messageType", "1");
                 } catch (Exception e) {
