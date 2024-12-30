@@ -2,10 +2,15 @@ package com.example.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import com.example.model.ChartData;
 import com.example.service.UsageDataService;
+import com.example.util.DatabaseConnection;
+import com.example.util.QueryLoader;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -23,6 +28,34 @@ public class ChartDataServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private static final Logger logger = LogManager.getLogger(ChartDataServlet.class);
+    
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        logger.info("Initializing ChartDataServlet...");
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement()) {
+
+            String[] createTableQueries = {
+                QueryLoader.getQuery("create_table_admin"),
+                QueryLoader.getQuery("create_table_upload_metadata"),
+                QueryLoader.getQuery("create_table_usage_table")
+            };
+
+            for (String query : createTableQueries) {
+                if (query != null) {
+                    statement.execute(query);
+                    logger.info("Executed table creation query: {}", query);
+                } else {
+                    logger.warn("Query not found for table creation.");
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Error during table creation", e);
+            throw new ServletException("Failed to initialize database tables", e);
+        }
+    }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
