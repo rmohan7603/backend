@@ -54,10 +54,15 @@ public class UploadServlet extends HttpServlet {
             return;
         }
 
+        session.setAttribute("filesUploaded", 0);
+        session.setAttribute("recordsInserted", 0);
+        session.setAttribute("recordsUpdated", 0);
+        session.setAttribute("recordsSkipped", 0);
+
         for (Part filePart : fileParts) {
             if (filePart.getName().equals("files") && filePart.getSize() > 0) {
                 try (InputStream fileContent = filePart.getInputStream()) {
-                    usageDataService.processCSV(fileContent, adminId, filePart.getSubmittedFileName(),duplicateAction);
+                	usageDataService.processCSV(fileContent, adminId, filePart.getSubmittedFileName(),duplicateAction, session);
                     session.setAttribute("message", "File Upload Success");
                     session.setAttribute("messageType", "1");
                     logger.info("File upload success for file: {}", filePart.getSubmittedFileName());

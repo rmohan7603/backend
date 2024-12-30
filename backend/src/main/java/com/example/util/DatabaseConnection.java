@@ -35,8 +35,8 @@ public class DatabaseConnection {
         
         try {
             Context context = new InitialContext();
-            dataSource = (DataSource) context.lookup("java:comp/env/jdbc/YourDB");
-            logger.info("Successfully initialized JNDI DataSource");
+            dataSource = (DataSource) context.lookup("java:comp/env/jdbc/myDBSource");
+            logger.info("Successfully initialized JNDI DataSource");	
         } catch (NamingException e) {
             logger.error("Failed to initialize JNDI DataSource", e);
             throw new RuntimeException("Failed to initialize JNDI DataSource", e);
@@ -51,7 +51,6 @@ public class DatabaseConnection {
             Connection connection = dataSource.getConnection();
             
 //            System.out.println("DB Connection EStablished");
-            
             logger.info("Database connection established successfully.");
             return connection;
         } catch (SQLException e) {

@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <!-- Console Appender -->
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%logger{36}] - %msg%n" />
         </Console>
-        
-        <!-- Rolling File Appender -->
-        <RollingFile name="RollingFileLogger" fileName="/home/mohan-pt7758/eclipse-workspace/backend/logs/application.log" filePattern="/home/mohan-pt7758/eclipse-workspace/backend/logs/application-%d{yyyy-MM-dd}.log">
+
+        <RollingFile name="RollingFileLogger" 
+                     fileName="/home/mohan-pt7758/eclipse-workspace/backend/logs/application.log"
+                     filePattern="/home/mohan-pt7758/eclipse-workspace/backend/logs/application-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Pattern>
             </PatternLayout>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!-- Time based rolling on daily basis -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- Size based rolling at 25MB -->
+                <SizeBasedTriggeringPolicy size="25MB"/>
             </Policies>
+            <!-- Keep max 30 files for each day -->
+            <DefaultRolloverStrategy max="30"/>
         </RollingFile>
     </Appenders>
 
     <Loggers>
-        <!-- Application Logger (for com.example package) -->
         <Logger name="com.example" level="debug" additivity="false">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFileLogger" />
         </Logger>
 
-        <!-- Root Logger -->
         <Root level="info">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFileLogger" />

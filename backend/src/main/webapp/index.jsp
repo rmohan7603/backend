@@ -5,9 +5,9 @@
     <title>Usage Visualization</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <style>
-		p{
-			font-size: 14px;
-		}
+        p {
+            font-size: 14px;
+        }
         
         body {
             font-family: Arial, sans-serif;
@@ -94,33 +94,33 @@
             background-color: #005ea1;
         }
         
-		.message-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .message-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             padding: 15px;
-            margin: 10px auto;
-            width: 90%;
-            max-width: 600px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             font-size: 16px;
-            position: relative;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
         }
 
-        .message-box .icon {
+        .message-popup .icon {
             margin-right: 10px;
             font-size: 24px;
         }
 
-        .message-box .text {
+        .message-popup .text {
             flex-grow: 1;
         }
 
-        .message-box .close-btn {
+        .message-popup .close-btn {
             background: none;
             border: none;
-            color: #888;
+            color: #fff;
             font-size: 20px;
             cursor: pointer;
         }
@@ -147,7 +147,6 @@
                 opacity: 0;
             }
         }
-        
     </style>
 </head>
 <body>
@@ -189,11 +188,13 @@
             <option value="line">Line</option>
             <option value="bar">Bar</option>
         </select>
-
-        <!-- <button type="submit">Generate Chart</button> -->
     </form>
-    
-   <% 
+
+    <%
+        Integer filesUploaded = (Integer) session.getAttribute("filesUploaded");
+        Integer recordsInserted = (Integer) session.getAttribute("recordsInserted");
+        Integer recordsUpdated = (Integer) session.getAttribute("recordsUpdated");
+        Integer recordsSkipped = (Integer) session.getAttribute("recordsSkipped");
         String message = (String) session.getAttribute("message");
         String messageType = (String) session.getAttribute("messageType");
         if (message != null) {
@@ -204,133 +205,139 @@
                 icon = "❌";
             }
     %>
-    <div id="statusMessage" class="message-box <%= messageClass %>">
+    <div id="statusMessage" class="message-popup <%= messageClass %>">
         <span class="icon"><%= icon %></span>
-        <span class="text"><%= message %></span>
+        <span class="text">
+            <b><%= message %></b><br>
+            Files Uploaded: <%= filesUploaded != null ? filesUploaded : 0 %>
+            , Records Inserted: <%= recordsInserted != null ? recordsInserted : 0 %>
+            , Records Updated: <%= recordsUpdated != null ? recordsUpdated : 0 %>
+            , Records Skipped: <%= recordsSkipped != null ? recordsSkipped : 0 %>
+        </span>
         <button class="close-btn" onclick="closeMessage()">×</button>
     </div>
-    <% 
+    <%
             session.removeAttribute("message");
             session.removeAttribute("messageType");
+            session.removeAttribute("filesUploaded");
+            session.removeAttribute("recordsInserted");
+            session.removeAttribute("recordsUpdated");
+            session.removeAttribute("recordsSkipped");
         }
     %>
-    
 
     <script>
-    
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const messageElement = document.getElementById('statusMessage');
-        if (messageElement) {
-            setTimeout(() => {
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const messageElement = document.getElementById('statusMessage');
+            if (messageElement) {
+                setTimeout(() => {
+                    messageElement.classList.add('fade-out');
+                }, 3000);
+            }
+        });
+
+        function closeMessage() {
+            const messageElement = document.getElementById('statusMessage');
+            if (messageElement) {
                 messageElement.classList.add('fade-out');
-            }, 3000);
+            }
         }
-    });
+        
+        let currentGraphType = 'line';
+        let cachedData = null;
+        let currentFilter = 'total';
 
-    function closeMessage() {
-        const messageElement = document.getElementById('statusMessage');
-        if (messageElement) {
-            messageElement.classList.add('fade-out');
-        }
-    }
-    
-    
-    let currentGraphType = 'line';
-    let cachedData = null;
-    let currentFilter = 'total';
-
-    function loadDefaultChart() {
-        loadFilteredChart('total');
-    }
-
-    function loadFilteredChart(filter) {
-        if (filter === currentFilter && cachedData) {
-            renderChart(cachedData);
-            return;
+        function loadDefaultChart() {
+            loadFilteredChart('total');
         }
 
-        currentFilter = filter;
+        function loadFilteredChart(filter) {
+            if (filter === currentFilter && cachedData) {
+                renderChart(cachedData);
+                return;
+            }
 
-        fetch('chart-data', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ filter: filter })
-        })
-            .then(response => response.json())
-            .then(data => {
-                cachedData = data;
-                renderChart(data);
+            currentFilter = filter;
+
+            fetch('chart-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filter: filter })
             })
-            .catch(error => {
-                console.error('Error loading filtered chart data:', error);
-                alert('Failed to load filtered chart data. Check the console for details.');
-            });
-    }
-
-    function updateGraphType() {
-        const graphTypeSelect = document.getElementById('graphType');
-        currentGraphType = graphTypeSelect.value;
-
-        if (cachedData) {
-            renderChart(cachedData);
+                .then(response => response.json())
+                .then(data => {
+                    cachedData = data;
+                    renderChart(data);
+                })
+                .catch(error => {
+                    console.error('Error loading filtered chart data:', error);
+                    alert('Failed to load filtered chart data. Check the console for details.');
+                });
         }
-    }
 
-    function handleTimeFrameChange() {
-        const filterValue = document.getElementById('filter').value;
-        loadFilteredChart(filterValue);
-    }
+        function updateGraphType() {
+            const graphTypeSelect = document.getElementById('graphType');
+            currentGraphType = graphTypeSelect.value;
 
-    function renderChart(data) {
-        const xValues = data.map(item => item.userId);
-        const yValues = data.map(item => item.usageValue);
+            if (cachedData) {
+                renderChart(cachedData);
+            }
+        }
 
-        const chart = echarts.init(document.getElementById('container'));
+        function handleTimeFrameChange() {
+            const filterValue = document.getElementById('filter').value;
+            loadFilteredChart(filterValue);
+        }
 
-        const options = {
-            title: {
-                text: 'Displaying Usage of Each User',
-                left: 'center'
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: { type: 'shadow' }
-            },
-            xAxis: {
-                type: 'category',
-                data: xValues,
-                name: 'User ID',
-                nameLocation: 'middle',
-                nameGap: 50,
-                axisLabel: {
-                    interval: 0,
-                    rotate: 45,
-                    fontSize: 10
-                }
-            },
-            yAxis: {
-                type: 'value',
-                name: 'Usage Value',
-                nameLocation: 'middle',
-                nameGap: 80
-            },
-            series: [{
-                name: 'Usage Value',
-                type: currentGraphType,
-                data: yValues,
-                smooth: currentGraphType === 'line',
-                itemStyle: { color: '#82EEFD' }
-            }]
-        };
+        function renderChart(data) {
+            const xValues = data.map(item => item.userId);
+            const yValues = data.map(item => item.usageValue);
 
-        chart.setOption(options);
-    }
+            const chart = echarts.init(document.getElementById('container'));
 
-    document.getElementById('filter').addEventListener('change', handleTimeFrameChange);
-    document.getElementById('graphType').addEventListener('change', updateGraphType);
+            const options = {
+                title: {
+                    text: 'Displaying Usage of Each User',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: xValues,
+                    name: 'User ID',
+                    nameLocation: 'middle',
+                    nameGap: 50,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 45,
+                        fontSize: 10
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: 'Usage Value',
+                    nameLocation: 'middle',
+                    nameGap: 80
+                },
+                series: [{
+                    name: 'Usage Value',
+                    type: currentGraphType,
+                    data: yValues,
+                    smooth: currentGraphType === 'line',
+                    itemStyle: { color: '#82EEFD' }
+                }]
+            };
 
-    loadDefaultChart();
+            chart.setOption(options);
+        }
 
-</script>
+        document.getElementById('filter').addEventListener('change', handleTimeFrameChange);
+        document.getElementById('graphType').addEventListener('change', updateGraphType);
+
+        loadDefaultChart();
+    </script>
 </body>
 </html>

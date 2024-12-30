@@ -8,6 +8,8 @@ import com.example.util.CSVProcessor;
 import com.example.util.DatabaseConnection;
 import com.example.util.QueryLoader;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +30,7 @@ public class UsageDataService {
         uploadMetadataDAO = new UploadMetadataDAO();
     }
     
-    public void processCSV(InputStream fileContent, int adminId, String fileName, String action) throws Exception {
+    public void processCSV(InputStream fileContent, int adminId, String fileName, String action, HttpSession session) throws Exception {
         List<UsageData> dataList = CSVProcessor.parseCSV(fileContent);
         List<UsageData> duplicates = usageDataDAO.findDuplicates(dataList);
 
@@ -46,6 +48,16 @@ public class UsageDataService {
         
         usageDataDAO.bulkInsertOrUpdate(insertList, updateList);
         uploadMetadataDAO.recordUpload(adminId, fileName, insertList.size(), updateList.size(), duplicates.size() - updateList.size());
+        
+        int filesUploaded=(Integer)session.getAttribute("filesUploaded")+1;
+        int recordsInserted=(Integer)session.getAttribute("recordsInserted")+insertList.size();
+        int recordsUpdated=(Integer)session.getAttribute("recordsUpdated")+updateList.size();
+        int recordsSkipped=(Integer)session.getAttribute("recordsSkipped")+duplicates.size() - updateList.size();
+        
+        session.setAttribute("filesUploaded", filesUploaded);
+        session.setAttribute("recordsInserted", recordsInserted);
+        session.setAttribute("recordsUpdated", recordsUpdated);
+        session.setAttribute("recordsSkipped", recordsSkipped);
     }
 
     public List<ChartData> getChartData(String filter) throws ClassNotFoundException {
