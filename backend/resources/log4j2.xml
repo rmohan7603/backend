@@ -12,12 +12,9 @@
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Pattern>
             </PatternLayout>
             <Policies>
-                <!-- Time based rolling on daily basis -->
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
-                <!-- Size based rolling at 25MB -->
                 <SizeBasedTriggeringPolicy size="25MB"/>
             </Policies>
-            <!-- Keep max 30 files for each day -->
             <DefaultRolloverStrategy max="30"/>
         </RollingFile>
     </Appenders>

@@ -1,7 +1,7 @@
 package com.example.service;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import java.sql.SQLException;
-
 import com.example.dao.AdminDAO;
 
 public class AdminService {
@@ -13,7 +13,7 @@ public class AdminService {
 
     public int authenticateAndGetAdminId(String username, String password) throws SQLException {
         String storedPassword = adminDAO.getPasswordByUsername(username);
-        if (storedPassword != null && storedPassword.equals(password)) {
+        if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
             return adminDAO.getAdminIdByUsername(username);
         }
         return -1;
