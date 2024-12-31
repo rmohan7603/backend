@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,10 +62,14 @@ public class UsageDataService {
     }
 
     public List<ChartData> getChartData(String filter) throws ClassNotFoundException {
-        System.out.println("Filter: " + filter);
+        //System.out.println("Filter: " + filter);
         
         String query = QueryLoader.getQuery("getChartDataBase");
         long currentEpoch = System.currentTimeMillis() / 1000;
+        
+        if (filter == null || filter.trim().isEmpty()) {
+            filter = "previousquarter";
+        }
         
         long[] timeRange = getTimeRange(filter, currentEpoch);
         
@@ -75,7 +80,7 @@ public class UsageDataService {
         query += " ";
         query += QueryLoader.getQuery("getChartDataGroupBy");
 
-        System.out.println("Executing query: " + query);
+        //System.out.println("Executing query: " + query);
 
         List<ChartData> chartDataList = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
@@ -128,9 +133,13 @@ public class UsageDataService {
                 return new long[] {getStartOfThisYearEpoch(), currentEpoch};
             case "lastyear":
                 return new long[] {getStartOfLastYearEpoch(), getStartOfThisYearEpoch()};
+            case "previoushalf":
+                return new long[] {getStartOfPreviousHalfYearEpoch(), getStartOfCurrentHalfYearEpoch()};
             case "total":
-            default:
                 return new long[] {0, currentEpoch};
+            case "previousquarter":
+            default:
+                return new long[] {getStartOfPreviousQuarterEpoch(), getStartOfCurrentQuarterEpoch()};
         }
     }
 
@@ -175,5 +184,37 @@ public class UsageDataService {
     private long getStartOfLastYearEpoch() {
         LocalDate startOfLastYear = LocalDate.now().withDayOfYear(1).minusYears(1);
         return startOfLastYear.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+    }
+    
+    private long getStartOfCurrentQuarterEpoch() {
+        LocalDate today = LocalDate.now();
+        LocalDate startOfQuarter = today.withDayOfMonth(1)
+            .with(IsoFields.DAY_OF_QUARTER, 1);
+        return startOfQuarter.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+    }
+
+    private long getStartOfPreviousQuarterEpoch() {
+        LocalDate today = LocalDate.now();
+        LocalDate startOfPreviousQuarter = today.withDayOfMonth(1)
+            .with(IsoFields.DAY_OF_QUARTER, 1)
+            .minusMonths(3);
+        return startOfPreviousQuarter.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+    }
+
+    private long getStartOfCurrentHalfYearEpoch() {
+        LocalDate today = LocalDate.now();
+        int currentMonth = today.getMonthValue();
+        LocalDate startOfHalf = today.withDayOfMonth(1)
+            .withMonth(currentMonth <= 6 ? 1 : 7);
+        return startOfHalf.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+    }
+
+    private long getStartOfPreviousHalfYearEpoch() {
+        LocalDate today = LocalDate.now();
+        int currentMonth = today.getMonthValue();
+        LocalDate startOfPreviousHalf = today.withDayOfMonth(1)
+            .withMonth(currentMonth <= 6 ? 7 : 1)
+            .minusMonths(6);
+        return startOfPreviousHalf.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
 }

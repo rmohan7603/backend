@@ -171,7 +171,8 @@
     <form id="filterForm" method="post" onsubmit="loadFilteredChart(event)">
         <label for="filter">Select Time Range:</label>
         <select id="filter" name="filter">
-            <option value="total">Total</option>
+            <option value="previousquarter" selected>Previous Quarter</option>
+            <option value="previoushalf">Previous Half Year</option>
             <option value="today">Today</option>
             <option value="yesterday">Yesterday</option>
             <option value="last24hours">Last 24 Hours</option>
@@ -181,6 +182,7 @@
             <option value="lastmonth">Last Month</option>
             <option value="thisyear">This Year</option>
             <option value="lastyear">Last Year</option>
+            <option value="total">Total</option>
         </select>
 
         <label for="graphType">Select Graph Type:</label>
@@ -227,12 +229,24 @@
     %>
 
     <script>
+        let currentGraphType = 'line';
+        let cachedData = null;
+        let currentFilter = 'previousquarter';
+        let chartInstance = null;
+
         window.addEventListener('DOMContentLoaded', (event) => {
             const messageElement = document.getElementById('statusMessage');
             if (messageElement) {
                 setTimeout(() => {
                     messageElement.classList.add('fade-out');
                 }, 3000);
+            }
+            loadDefaultChart();
+        });
+
+        window.addEventListener('resize', function() {
+            if (chartInstance) {
+                chartInstance.resize();
             }
         });
 
@@ -242,16 +256,18 @@
                 messageElement.classList.add('fade-out');
             }
         }
-        
-        let currentGraphType = 'line';
-        let cachedData = null;
-        let currentFilter = 'total';
 
         function loadDefaultChart() {
-            loadFilteredChart('total');
+            loadFilteredChart(currentFilter);
         }
 
-        function loadFilteredChart(filter) {
+        function loadFilteredChart(event) {
+            if (event && event.preventDefault) {
+                event.preventDefault();
+            }
+
+            const filter = typeof event === 'string' ? event : document.getElementById('filter').value;
+
             if (filter === currentFilter && cachedData) {
                 renderChart(cachedData);
                 return;
@@ -264,14 +280,22 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ filter: filter })
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    if (!data || !Array.isArray(data)) {
+                        throw new Error('Invalid data format received');
+                    }
                     cachedData = data;
                     renderChart(data);
                 })
                 .catch(error => {
                     console.error('Error loading filtered chart data:', error);
-                    alert('Failed to load filtered chart data. Check the console for details.');
+                    alert('Failed to load filtered chart data. Please try again later.');
                 });
         }
 
@@ -289,11 +313,19 @@
             loadFilteredChart(filterValue);
         }
 
+        function disposeChart() {
+            if (chartInstance) {
+                chartInstance.dispose();
+            }
+        }
+
         function renderChart(data) {
+            disposeChart();
+            
             const xValues = data.map(item => item.userId);
             const yValues = data.map(item => item.usageValue);
 
-            const chart = echarts.init(document.getElementById('container'));
+            chartInstance = echarts.init(document.getElementById('container'));
 
             const options = {
                 title: {
@@ -331,13 +363,11 @@
                 }]
             };
 
-            chart.setOption(options);
+            chartInstance.setOption(options);
         }
 
         document.getElementById('filter').addEventListener('change', handleTimeFrameChange);
         document.getElementById('graphType').addEventListener('change', updateGraphType);
-
-        loadDefaultChart();
     </script>
 </body>
 </html>
