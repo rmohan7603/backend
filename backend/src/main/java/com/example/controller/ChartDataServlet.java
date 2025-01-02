@@ -91,7 +91,7 @@ public class ChartDataServlet extends HttpServlet {
 
             response.setContentType("application/json");
             response.getWriter().write(new Gson().toJson(chartData));
-            System.out.println("Chart data sent: " + new Gson().toJson(chartData));
+            //System.out.println("Chart data sent: " + new Gson().toJson(chartData));
         } catch (Exception e) {
         	logger.error("Error processing request", e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

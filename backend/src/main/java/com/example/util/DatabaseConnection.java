@@ -41,7 +41,7 @@ public class DatabaseConnection {
 
         String url = "jdbc:" + dbType + "://" + host + ":" + port + "/" + database;
 
-        logger.info("Constructed database URL: {}", url);
+        //logger.info("Constructed database URL: {}", url);
 
         try {
             Context context = new InitialContext();
@@ -70,7 +70,6 @@ public class DatabaseConnection {
 
     public static String getDbType() {
         String dbType = properties.getProperty("db.type");
-        logger.info("Database type: {}", dbType);
         return dbType;
     }
 }

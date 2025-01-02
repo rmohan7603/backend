@@ -54,8 +54,8 @@
         }
 
         #container {
-            width: 90%;
-            height: 600px;
+            width: 95%;
+            height: 850px;
             margin: 30px auto;
             border: 1px solid #ddd;
             background-color: white;
@@ -187,8 +187,10 @@
 
         <label for="graphType">Select Graph Type:</label>
         <select id="graphType" onchange="updateGraphType()">
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
+            <option value="line">Line Chart</option>
+            <option value="bar">Bar Chart</option>
+            <option value="area">Area Chart</option>
+            <option value="scatter">Scatter Chart</option>
         </select>
     </form>
 
@@ -235,12 +237,12 @@
         let chartInstance = null;
 
         window.addEventListener('DOMContentLoaded', (event) => {
-            const messageElement = document.getElementById('statusMessage');
-            if (messageElement) {
-                setTimeout(() => {
-                    messageElement.classList.add('fade-out');
-                }, 3000);
-            }
+
+            // 1. Reset to default values on refresh
+            resetToDefaults();
+            // 2. Preserve filters on refresh
+            //preserveFilters();
+
             loadDefaultChart();
         });
 
@@ -249,6 +251,25 @@
                 chartInstance.resize();
             }
         });
+        
+        function resetToDefaults() {
+            document.getElementById('filter').value = 'previousquarter';
+            document.getElementById('graphType').value = 'line';
+        }
+
+        function preserveFilters() {
+            const savedFilter = sessionStorage.getItem('filter') || 'previousquarter';
+            const savedGraphType = sessionStorage.getItem('graphType') || 'line';
+            document.getElementById('filter').value = savedFilter;
+            document.getElementById('graphType').value = savedGraphType;
+            currentFilter = savedFilter;
+            currentGraphType = savedGraphType;
+        }
+
+        function saveFilters() {
+            sessionStorage.setItem('filter', currentFilter);
+            sessionStorage.setItem('graphType', currentGraphType);
+        }
 
         function closeMessage() {
             const messageElement = document.getElementById('statusMessage');
@@ -300,8 +321,8 @@
         }
 
         function updateGraphType() {
-            const graphTypeSelect = document.getElementById('graphType');
-            currentGraphType = graphTypeSelect.value;
+            currentGraphType = document.getElementById('graphType').value;
+            saveFilters();
 
             if (cachedData) {
                 renderChart(cachedData);
@@ -319,24 +340,72 @@
             }
         }
 
-        function renderChart(data) {
-            disposeChart();
-            
-            const xValues = data.map(item => item.userId);
-            const yValues = data.map(item => item.usageValue);
+        function fetchDataAndRenderChart() {
+            currentGraphType = document.getElementById('chartType').value;
+            fetch('DataServlet')
+                .then(response => response.json())
+                .then(data => renderChart(data))
+                .catch(error => console.error('Error fetching data:', error));
+        }
 
-            chartInstance = echarts.init(document.getElementById('container'));
-
-            const options = {
-                title: {
-                    text: 'Displaying Usage of Each User',
-                    left: 'center'
+        function getCommonOptions(xValues, yValues, title) {
+            return {
+                title: { 
+                    text: title,
+                    left: 'center',
+                    top: 20
                 },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { type: 'shadow' }
                 },
-                xAxis: {
+                /* tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    formatter: function(params) {
+                        const dataPoint = params[0];
+                        console.log(dataPoint.name,dataPoint.value)
+                        return `User ID: ${dataPoint.name}<br>Usage Value: ${dataPoint.value}`;
+                    }
+                }, */
+                grid: {
+                    left: '10%',
+                    right: '10%',
+                    bottom: '15%',
+                    top: '15%',
+                    containLabel: true
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        xAxisIndex: [0],
+                        start: 0,
+                        end: 100,
+                        bottom: 10
+                    },
+                    {
+                        type: 'slider',
+                        show: true,
+                        yAxisIndex: [0],
+                        left: '3%',
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: [0],
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: [0],
+                        start: 0,
+                        end: 100
+                    }
+                ],
+                xAxis: { 
                     type: 'category',
                     data: xValues,
                     name: 'User ID',
@@ -344,27 +413,135 @@
                     nameGap: 50,
                     axisLabel: {
                         interval: 0,
-                        rotate: 45,
-                        fontSize: 10
+                        rotate: 45
                     }
                 },
-                yAxis: {
+                yAxis: { 
                     type: 'value',
                     name: 'Usage Value',
                     nameLocation: 'middle',
-                    nameGap: 80
-                },
-                series: [{
-                    name: 'Usage Value',
-                    type: currentGraphType,
-                    data: yValues,
-                    smooth: currentGraphType === 'line',
-                    itemStyle: { color: '#82EEFD' }
-                }]
+                    nameGap: 50
+                }
             };
+        }
+
+
+        function getLineChartOptions(xValues, yValues) {
+            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
+            options.series = [{
+                name: 'Usage',
+                type: 'line',
+                data: yValues,
+                itemStyle: { color: '#82eefd' },
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Maximum' },
+                        { type: 'min', name: 'Minimum' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Average' }]
+                }
+            }];
+            return options;
+        }
+
+        function getBarChartOptions(xValues, yValues) {
+            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
+            options.series = [{
+                name: 'Usage',
+                type: 'bar',
+                data: yValues,
+                itemStyle: { color: '#82eefd' },
+                barWidth: '50%',
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Maximum' },
+                        { type: 'min', name: 'Minimum' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Average' }]
+                }
+            }];
+            return options;
+        }
+
+        function getAreaChartOptions(xValues, yValues) {
+            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
+            options.series = [{
+                name: 'Usage',
+                type: 'line',
+                data: yValues,
+                areaStyle: {
+                    color: '#82eefd',
+                    opacity: 0.3
+                },
+                itemStyle: { color: '#82eefd' },
+                smooth: true,
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Maximum' },
+                        { type: 'min', name: 'Minimum' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Average' }]
+                }
+            }];
+            return options;
+        }
+
+        function getScatterChartOptions(xValues, yValues) {
+            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
+            options.series = [{
+                name: 'Usage',
+                type: 'scatter',
+                data: yValues,
+                symbolSize: 20,
+                itemStyle: { color: '#82eefd' },
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Maximum' },
+                        { type: 'min', name: 'Minimum' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Average' }]
+                }
+            }];
+            return options;
+        }
+
+        function renderChart(data) {
+            disposeChart();
+
+            const xValues = data.map(item => item.userId);
+            const yValues = data.map(item => item.usageValue);
+
+            chartInstance = echarts.init(document.getElementById('container'));
+
+            let options;
+            switch (currentGraphType) {
+                case 'line':
+                    options = getLineChartOptions(xValues, yValues);
+                    break;
+                case 'bar':
+                    options = getBarChartOptions(xValues, yValues);
+                    break;
+                case 'area':
+                    options = getAreaChartOptions(xValues, yValues);
+                    break;
+                case 'scatter':
+                    options = getScatterChartOptions(xValues, yValues);
+                    break;
+                default:
+                    options = getLineChartOptions(xValues, yValues);
+            }
 
             chartInstance.setOption(options);
         }
+
 
         document.getElementById('filter').addEventListener('change', handleTimeFrameChange);
         document.getElementById('graphType').addEventListener('change', updateGraphType);
