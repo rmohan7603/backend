@@ -152,6 +152,10 @@
 <body>
     <header>
         <h1>USAGE-DASHBOARD</h1>
+        
+        <% if (request.getAttribute("error") != null) { %>
+            <div class="error-message"><%= request.getAttribute("error") %></div>
+        <% } %>
         <div class="admin-section">
             <%
                 String username = (session != null) ? (String) session.getAttribute("username") : null;
@@ -229,7 +233,6 @@
             session.removeAttribute("recordsSkipped");
         }
     %>
-
     <script>
         let currentGraphType = 'line';
         let cachedData = null;
