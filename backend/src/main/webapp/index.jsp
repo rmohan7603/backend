@@ -242,9 +242,9 @@
         window.addEventListener('DOMContentLoaded', (event) => {
 
             // 1. Reset to default values on refresh
-            resetToDefaults();
+            //resetToDefaults();
             // 2. Preserve filters on refresh
-            //preserveFilters();
+            preserveFilters();
 
             loadDefaultChart();
         });

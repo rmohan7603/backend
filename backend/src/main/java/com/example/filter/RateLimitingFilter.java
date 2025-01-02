@@ -13,19 +13,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 
 @WebFilter("/*")
 public class RateLimitingFilter implements Filter {
 
     private static final Logger logger = LogManager.getLogger(RateLimitingFilter.class);
-    private static final long REQUEST_LIMIT_TIME_WINDOW_MS = TimeUnit.MINUTES.toMillis(1);
-    private static final int MAX_REQUESTS_PER_WINDOW = 25;
-    private static final Map<String, RequestInfo> requestCounts = new ConcurrentHashMap<>();
+
+    private static final long TIME_WINDOW_MS = 60_000;
+    private static final int MAX_REQUESTS = 25;
+
+    private final Map<String, ConcurrentLinkedQueue<Long>> requestTimestamps = new ConcurrentHashMap<>();
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
@@ -34,36 +35,53 @@ public class RateLimitingFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        String isAdmin = (String) request.getSession().getAttribute("username");
-        //System.out.println(isAdmin);
-        
-        if (isAdmin!=null) {
+        String username = (String) request.getSession().getAttribute("username");
+        if (username != null) {
             chain.doFilter(request, response);
             return;
         }
 
-        String clientIp = request.getRemoteAddr();
+        String clientIp = getClientIp(request);
         long currentTime = System.currentTimeMillis();
 
-        RequestInfo info = requestCounts.compute(clientIp, (key, oldInfo) -> {
-            if (oldInfo == null || currentTime - oldInfo.windowStartTime > REQUEST_LIMIT_TIME_WINDOW_MS) {
-                return new RequestInfo(1, currentTime);
-            }
-            oldInfo.requestCount++;
-            System.out.println(oldInfo.requestCount+" "+oldInfo.windowStartTime);
-            return oldInfo;
-        });
+        boolean allowed = isAllowed(clientIp, currentTime);
 
-        if (info.requestCount > MAX_REQUESTS_PER_WINDOW) {
-        	logger.warn("Rate limit exceeded for IP: {} - Request count: {}", clientIp, info.requestCount);
-        	
-        	response.setStatus(429);
+        if (!allowed) {
+            logger.warn("Rate limit exceeded for IP: {}", clientIp);
+            response.setStatus(429);
             response.getWriter().write("{\"error\": \"Too many requests. Please try again later.\"}");
             return;
         }
-        
-        logger.info("Request allowed for IP: {} - Request count: {}", clientIp, info.requestCount);
+
+        logger.info("Request allowed for IP: {}", clientIp);
         chain.doFilter(request, response);
+    }
+
+    private boolean isAllowed(String clientIp, long currentTime) {
+        requestTimestamps.putIfAbsent(clientIp, new ConcurrentLinkedQueue<>());
+
+        ConcurrentLinkedQueue<Long> timestamps = requestTimestamps.get(clientIp);
+
+        synchronized (timestamps) {
+            while (!timestamps.isEmpty() && timestamps.peek() < currentTime - TIME_WINDOW_MS) {
+                timestamps.poll();
+            }
+
+            if (timestamps.size() < MAX_REQUESTS) {
+                timestamps.offer(currentTime);
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    private String getClientIp(HttpServletRequest request) {
+        String forwardedFor = request.getHeader("X-Forwarded-For");
+        if (forwardedFor != null && !forwardedFor.isEmpty()) {
+            return forwardedFor.split(",")[0].trim();
+        }
+        return request.getRemoteAddr();
     }
 
     @Override
@@ -71,14 +89,4 @@ public class RateLimitingFilter implements Filter {
 
     @Override
     public void destroy() {}
-
-    private static class RequestInfo {
-        int requestCount;
-        long windowStartTime;
-
-        RequestInfo(int requestCount, long windowStartTime) {
-            this.requestCount = requestCount;
-            this.windowStartTime = windowStartTime;
-        }
-    }
 }
