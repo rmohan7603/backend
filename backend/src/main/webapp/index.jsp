@@ -435,7 +435,7 @@
                 name: 'Usage',
                 type: 'line',
                 data: yValues,
-                itemStyle: { color: '#82eefd' },
+                itemStyle: { color: '#a294f9' },
                 markPoint: {
                     data: [
                         { type: 'max', name: 'Maximum' },
@@ -455,7 +455,7 @@
                 name: 'Usage',
                 type: 'bar',
                 data: yValues,
-                itemStyle: { color: '#82eefd' },
+                itemStyle: { color: '#a294f9' },
                 barWidth: '50%',
                 markPoint: {
                     data: [
@@ -480,7 +480,7 @@
                     color: '#82eefd',
                     opacity: 0.3
                 },
-                itemStyle: { color: '#82eefd' },
+                itemStyle: { color: '#a294f9' },
                 smooth: true,
                 markPoint: {
                     data: [
@@ -502,7 +502,7 @@
                 type: 'scatter',
                 data: yValues,
                 symbolSize: 20,
-                itemStyle: { color: '#82eefd' },
+                itemStyle: { color: '#a294f9' },
                 markPoint: {
                     data: [
                         { type: 'max', name: 'Maximum' },
