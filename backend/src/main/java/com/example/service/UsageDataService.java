@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,33 +59,38 @@ public class UsageDataService {
         session.setAttribute("recordsUpdated", recordsUpdated);
         session.setAttribute("recordsSkipped", recordsSkipped);
     }
-
+    
     public List<ChartData> getChartData(String filter) throws ClassNotFoundException {
-        String query = QueryLoader.getQuery("getChartDataBase");
+        String baseQuery = QueryLoader.getQuery("getChartDataBase");
+        String groupByQuery = determineGroupBy(filter);
+
+        if (groupByQuery == null) {
+            throw new IllegalArgumentException("Invalid filter specified for chart data.");
+        }
+
+        String labelQuery = getLabelQuery(filter);
+        String fullQuery = baseQuery.replace("{label_query}", labelQuery) + " " + groupByQuery;
+
         long currentEpoch = System.currentTimeMillis() / 1000;
-        
         long[] timeRange = getTimeRange(filter, currentEpoch);
 
         if (timeRange == null) {
-            throw new IllegalArgumentException("Invalid time filter specified.");
+            throw new IllegalArgumentException("Invalid time range for the specified filter.");
         }
-
-        query += " ";
-        query += QueryLoader.getQuery("getChartDataGroupBy");
 
         List<ChartData> chartDataList = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(fullQuery)) {
 
             statement.setLong(1, timeRange[0]);
             statement.setLong(2, timeRange[1]);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-            	while (resultSet.next()) {
-            	    String usageDate = resultSet.getString("usage_date");
-            	    int totalUsage = resultSet.getInt("total_usage");
-            	    chartDataList.add(new ChartData(usageDate, totalUsage));
-            	}
+                while (resultSet.next()) {
+                    String label = resultSet.getString("label");
+                    int totalUsage = resultSet.getInt("total_usage");
+                    chartDataList.add(new ChartData(label, totalUsage));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,33 +99,82 @@ public class UsageDataService {
         return chartDataList;
     }
 
+    private String getLabelQuery(String filter) {
+        switch (filter.toLowerCase()) {
+            case "today":
+            case "yesterday":
+            case "last24hours":
+                return "TIME(FROM_UNIXTIME(epoch))";
+            case "thisweek":
+            case "lastweek":
+                return "DAYNAME(FROM_UNIXTIME(epoch))";
+            case "thismonth":
+            case "lastmonth":
+                return "DAY(FROM_UNIXTIME(epoch))";
+            case "thisyear":
+            case "lastyear":
+            case "previousquarter":
+            case "previoushalf":
+                return "MONTHNAME(FROM_UNIXTIME(epoch))";
+            case "total":
+                return "YEAR(FROM_UNIXTIME(epoch))";
+            default:
+                throw new IllegalArgumentException("Unsupported filter for label query.");
+        }
+    }
+
+    private String determineGroupBy(String filter) {
+        switch (filter.toLowerCase()) {
+            case "today":
+            case "yesterday":
+            case "last24hours":
+                return QueryLoader.getQuery("getChartDataGroupByTime");
+            case "thisweek":
+            case "lastweek":
+                return QueryLoader.getQuery("getChartDataGroupByDayOfWeek");
+            case "thismonth":
+            case "lastmonth":
+                return QueryLoader.getQuery("getChartDataGroupByDateOfMonth");
+            case "thisyear":
+            case "lastyear":
+            case "previousquarter":
+            case "previoushalf":
+                return QueryLoader.getQuery("getChartDataGroupByMonth");
+            case "total":
+                return QueryLoader.getQuery("getChartDataGroupByYear");
+            default:
+                throw new IllegalArgumentException("Unsupported filter for grouping.");
+        }
+    }
+
     private long[] getTimeRange(String filter, long currentEpoch) {
         switch (filter.toLowerCase()) {
             case "today":
-                return new long[] {getStartOfTodayEpoch(), currentEpoch};
+                return new long[]{getStartOfTodayEpoch(), currentEpoch};
             case "yesterday":
-                return new long[] {getStartOfYesterdayEpoch(), getStartOfTodayEpoch()};
+                return new long[]{getStartOfYesterdayEpoch(), getStartOfTodayEpoch()};
             case "last24hours":
-                return new long[] {currentEpoch - 86400, currentEpoch};
+                return new long[]{currentEpoch - 86400, currentEpoch};
             case "thisweek":
-                return new long[] {getStartOfThisWeekEpoch(), currentEpoch};
+                return new long[]{getStartOfThisWeekEpoch(), currentEpoch};
             case "lastweek":
-                return new long[] {getStartOfLastWeekEpoch(), getStartOfThisWeekEpoch()};
+                return new long[]{getStartOfLastWeekEpoch(), getStartOfThisWeekEpoch()};
             case "thismonth":
-                return new long[] {getStartOfThisMonthEpoch(), currentEpoch};
+                return new long[]{getStartOfThisMonthEpoch(), currentEpoch};
             case "lastmonth":
-                return new long[] {getStartOfLastMonthEpoch(), getStartOfThisMonthEpoch()};
+                return new long[]{getStartOfLastMonthEpoch(), getStartOfThisMonthEpoch()};
             case "thisyear":
-                return new long[] {getStartOfThisYearEpoch(), currentEpoch};
+                return new long[]{getStartOfThisYearEpoch(), currentEpoch};
             case "lastyear":
-                return new long[] {getStartOfLastYearEpoch(), getStartOfThisYearEpoch()};
-            case "previoushalf":
-                return new long[] {getStartOfPreviousHalfYearEpoch(), getStartOfCurrentHalfYearEpoch()};
-            case "total":
-                return new long[] {0, currentEpoch};
+                return new long[]{getStartOfLastYearEpoch(), getStartOfThisYearEpoch()};
             case "previousquarter":
+                return new long[]{getStartOfPreviousQuarterEpoch(), getStartOfCurrentQuarterEpoch()};
+            case "previoushalf":
+                return new long[]{getStartOfPreviousHalfYearEpoch(), getStartOfCurrentHalfYearEpoch()};
+            case "total":
+                return new long[]{0, currentEpoch};
             default:
-                return new long[] {getStartOfPreviousQuarterEpoch(), getStartOfCurrentQuarterEpoch()};
+                throw new IllegalArgumentException("Invalid filter specified.");
         }
     }
 
@@ -167,13 +220,6 @@ public class UsageDataService {
         LocalDate startOfLastYear = LocalDate.now().withDayOfYear(1).minusYears(1);
         return startOfLastYear.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
-    
-    private long getStartOfCurrentQuarterEpoch() {
-        LocalDate today = LocalDate.now();
-        int currentQuarter = (today.getMonthValue() - 1) / 3 + 1;
-        LocalDate startOfQuarter = LocalDate.of(today.getYear(), (currentQuarter - 1) * 3 + 1, 1);
-        return startOfQuarter.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
-    }
 
     private long getStartOfPreviousQuarterEpoch() {
         LocalDate today = LocalDate.now();
@@ -182,6 +228,13 @@ public class UsageDataService {
         int yearOfPreviousQuarter = currentQuarter == 1 ? today.getYear() - 1 : today.getYear();
         LocalDate startOfPreviousQuarter = LocalDate.of(yearOfPreviousQuarter, (previousQuarter - 1) * 3 + 1, 1);
         return startOfPreviousQuarter.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+    }
+
+    private long getStartOfCurrentQuarterEpoch() {
+        LocalDate today = LocalDate.now();
+        int currentQuarter = (today.getMonthValue() - 1) / 3 + 1;
+        LocalDate startOfQuarter = LocalDate.of(today.getYear(), (currentQuarter - 1) * 3 + 1, 1);
+        return startOfQuarter.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
 
     private long getStartOfCurrentHalfYearEpoch() {
@@ -199,5 +252,4 @@ public class UsageDataService {
         LocalDate startOfPreviousHalf = LocalDate.of(yearOfPreviousHalf, startMonthOfPreviousHalf, 1);
         return startOfPreviousHalf.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
-
 }
