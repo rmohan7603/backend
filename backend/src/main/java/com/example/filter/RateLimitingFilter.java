@@ -24,7 +24,7 @@ public class RateLimitingFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(RateLimitingFilter.class);
 
     private static final long TIME_WINDOW_MS = 60_000;
-    private static final int MAX_REQUESTS = 25;
+    private static final int MAX_REQUESTS = 60;
 
     private final Map<String, ConcurrentLinkedQueue<Long>> requestTimestamps = new ConcurrentHashMap<>();
 

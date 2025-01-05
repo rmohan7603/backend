@@ -62,54 +62,36 @@ public class UsageDataService {
     }
 
     public List<ChartData> getChartData(String filter) throws ClassNotFoundException {
-        //System.out.println("Filter: " + filter);
-        
         String query = QueryLoader.getQuery("getChartDataBase");
         long currentEpoch = System.currentTimeMillis() / 1000;
         
-        if (filter == null || filter.trim().isEmpty()) {
-            filter = "previousquarter";
-        }
-        
         long[] timeRange = getTimeRange(filter, currentEpoch);
-        
+
         if (timeRange == null) {
             throw new IllegalArgumentException("Invalid time filter specified.");
         }
-        
+
         query += " ";
         query += QueryLoader.getQuery("getChartDataGroupBy");
-
-        //System.out.println("Executing query: " + query);
 
         List<ChartData> chartDataList = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setLong(1, timeRange[0]); // start time
-            statement.setLong(2, timeRange[1]); // end time
+            statement.setLong(1, timeRange[0]);
+            statement.setLong(2, timeRange[1]);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    int userId = resultSet.getInt("user_id");
-                    String totalUsageStr = resultSet.getString("total_usage");
-
-                    try {
-                        if (totalUsageStr != null && !totalUsageStr.isEmpty()) {
-                            int totalUsage = Integer.parseInt(totalUsageStr);
-                            chartDataList.add(new ChartData(userId, totalUsage));
-                        } else {
-                            System.out.println("Invalid usage value for user: " + userId);
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Failed to parse usage value for user " + userId + ": " + totalUsageStr);
-                    }
-                }
+            	while (resultSet.next()) {
+            	    String usageDate = resultSet.getString("usage_date");
+            	    int totalUsage = resultSet.getInt("total_usage");
+            	    chartDataList.add(new ChartData(usageDate, totalUsage));
+            	}
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return chartDataList;
     }
 
@@ -188,33 +170,34 @@ public class UsageDataService {
     
     private long getStartOfCurrentQuarterEpoch() {
         LocalDate today = LocalDate.now();
-        LocalDate startOfQuarter = today.withDayOfMonth(1)
-            .with(IsoFields.DAY_OF_QUARTER, 1);
+        int currentQuarter = (today.getMonthValue() - 1) / 3 + 1;
+        LocalDate startOfQuarter = LocalDate.of(today.getYear(), (currentQuarter - 1) * 3 + 1, 1);
         return startOfQuarter.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
 
     private long getStartOfPreviousQuarterEpoch() {
         LocalDate today = LocalDate.now();
-        LocalDate startOfPreviousQuarter = today.withDayOfMonth(1)
-            .with(IsoFields.DAY_OF_QUARTER, 1)
-            .minusMonths(3);
+        int currentQuarter = (today.getMonthValue() - 1) / 3 + 1;
+        int previousQuarter = currentQuarter == 1 ? 4 : currentQuarter - 1;
+        int yearOfPreviousQuarter = currentQuarter == 1 ? today.getYear() - 1 : today.getYear();
+        LocalDate startOfPreviousQuarter = LocalDate.of(yearOfPreviousQuarter, (previousQuarter - 1) * 3 + 1, 1);
         return startOfPreviousQuarter.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
 
     private long getStartOfCurrentHalfYearEpoch() {
         LocalDate today = LocalDate.now();
         int currentMonth = today.getMonthValue();
-        LocalDate startOfHalf = today.withDayOfMonth(1)
-            .withMonth(currentMonth <= 6 ? 1 : 7);
+        LocalDate startOfHalf = LocalDate.of(today.getYear(), currentMonth <= 6 ? 1 : 7, 1);
         return startOfHalf.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
 
     private long getStartOfPreviousHalfYearEpoch() {
         LocalDate today = LocalDate.now();
         int currentMonth = today.getMonthValue();
-        LocalDate startOfPreviousHalf = today.withDayOfMonth(1)
-            .withMonth(currentMonth <= 6 ? 7 : 1)
-            .minusMonths(6);
+        int startMonthOfPreviousHalf = currentMonth <= 6 ? 7 : 1;
+        int yearOfPreviousHalf = currentMonth <= 6 ? today.getYear() - 1 : today.getYear();
+        LocalDate startOfPreviousHalf = LocalDate.of(yearOfPreviousHalf, startMonthOfPreviousHalf, 1);
         return startOfPreviousHalf.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
+
 }

@@ -261,17 +261,17 @@
         }
 
         function preserveFilters() {
-            const savedFilter = sessionStorage.getItem('filter') || 'previousquarter';
             const savedGraphType = sessionStorage.getItem('graphType') || 'line';
-            document.getElementById('filter').value = savedFilter;
+            const savedFilter = sessionStorage.getItem('filter') || 'previousquarter';
             document.getElementById('graphType').value = savedGraphType;
-            currentFilter = savedFilter;
+            document.getElementById('filter').value = savedFilter;
             currentGraphType = savedGraphType;
+            currentFilter = savedFilter;
         }
 
         function saveFilters() {
-            sessionStorage.setItem('filter', currentFilter);
             sessionStorage.setItem('graphType', currentGraphType);
+            sessionStorage.setItem('filter', currentFilter);
         }
 
         function closeMessage() {
@@ -335,6 +335,7 @@
         function handleTimeFrameChange() {
             const filterValue = document.getElementById('filter').value;
             loadFilteredChart(filterValue);
+            saveFilters();
         }
 
         function disposeChart() {
@@ -362,15 +363,6 @@
                     trigger: 'axis',
                     axisPointer: { type: 'shadow' }
                 },
-                /* tooltip: {
-                    trigger: 'axis',
-                    axisPointer: { type: 'shadow' },
-                    formatter: function(params) {
-                        const dataPoint = params[0];
-                        console.log(dataPoint.name,dataPoint.value)
-                        return `User ID: ${dataPoint.name}<br>Usage Value: ${dataPoint.value}`;
-                    }
-                }, */
                 grid: {
                     left: '10%',
                     right: '10%',
@@ -401,19 +393,19 @@
                         start: 0,
                         end: 100
                     },
-                    {
+                    /*{
                         type: 'inside',
                         yAxisIndex: [0],
                         start: 0,
                         end: 100
-                    }
+                    }*/
                 ],
                 xAxis: { 
                     type: 'category',
                     data: xValues,
-                    name: 'User ID',
+                    name: 'Time Frame',
                     nameLocation: 'middle',
-                    nameGap: 50,
+                    nameGap: 100,
                     axisLabel: {
                         interval: 0,
                         rotate: 45
@@ -423,7 +415,7 @@
                     type: 'value',
                     name: 'Usage Value',
                     nameLocation: 'middle',
-                    nameGap: 50
+                    nameGap: 70
                 }
             };
         }
@@ -438,12 +430,23 @@
                 itemStyle: { color: '#a294f9' },
                 markPoint: {
                     data: [
-                        { type: 'max', name: 'Maximum' },
-                        { type: 'min', name: 'Minimum' }
+                        { type: 'max', name: 'Maximum', label: { 
+                            position: 'top',
+                            formatter: 'Max: {c}' }
+                        },
+                        { type: 'min', name: 'Minimum', label: { 
+                            position: 'top',
+                            formatter: 'Min: {c}' }
+                        }
                     ]
                 },
                 markLine: {
-                    data: [{ type: 'average', name: 'Average' }]
+                    data: [{ type: 'average', name: 'Average' }],
+                    label: {
+                        formatter: 'Avg: {c}',
+                        position: 'insideEndTop',
+                        fontSize: 12
+                    }
                 }
             }];
             return options;
@@ -459,12 +462,23 @@
                 barWidth: '50%',
                 markPoint: {
                     data: [
-                        { type: 'max', name: 'Maximum' },
-                        { type: 'min', name: 'Minimum' }
+                        { type: 'max', name: 'Maximum', label: { 
+                            position: 'top',
+                            formatter: 'Max: {c}' }
+                        },
+                        { type: 'min', name: 'Minimum', label: { 
+                            position: 'top',
+                            formatter: 'Min: {c}' }
+                        }
                     ]
                 },
                 markLine: {
-                    data: [{ type: 'average', name: 'Average' }]
+                    data: [{ type: 'average', name: 'Average' }],
+                    label: {
+                        formatter: 'Avg: {c}',
+                        position: 'insideEndTop',
+                        fontSize: 12
+                    }
                 }
             }];
             return options;
@@ -484,12 +498,23 @@
                 smooth: true,
                 markPoint: {
                     data: [
-                        { type: 'max', name: 'Maximum' },
-                        { type: 'min', name: 'Minimum' }
+                        { type: 'max', name: 'Maximum', label: { 
+                            position: 'top',
+                            formatter: 'Max: {c}' }
+                        },
+                        { type: 'min', name: 'Minimum', label: { 
+                            position: 'top',
+                            formatter: 'Min: {c}' }
+                        }
                     ]
                 },
                 markLine: {
-                    data: [{ type: 'average', name: 'Average' }]
+                    data: [{ type: 'average', name: 'Average' }],
+                    label: {
+                        formatter: 'Avg: {c}',
+                        position: 'insideEndTop',
+                        fontSize: 12
+                    }
                 }
             }];
             return options;
@@ -505,12 +530,23 @@
                 itemStyle: { color: '#a294f9' },
                 markPoint: {
                     data: [
-                        { type: 'max', name: 'Maximum' },
-                        { type: 'min', name: 'Minimum' }
+                        { type: 'max', name: 'Maximum', label: { 
+                            position: 'top',
+                            formatter: 'Max: {c}' }
+                        },
+                        { type: 'min', name: 'Minimum', label: { 
+                            position: 'top',
+                            formatter: 'Min: {c}' }
+                        }
                     ]
                 },
                 markLine: {
-                    data: [{ type: 'average', name: 'Average' }]
+                    data: [{ type: 'average', name: 'Average' }],
+                    label: {
+                        formatter: 'Avg: {c}',
+                        position: 'insideEndTop',
+                        fontSize: 12
+                    }
                 }
             }];
             return options;
@@ -518,9 +554,18 @@
 
         function renderChart(data) {
             disposeChart();
-
-            const xValues = data.map(item => item.userId);
+            
+            console.log(data);
+            
+            const xValues = data.map(item => item.usageDate);
+            /* const xValues = tempData.map(item => {
+            	  const date = new Date(item * 1000);
+            	  return date.toISOString().split('T')[0];
+            	}); */
             const yValues = data.map(item => item.usageValue);
+            
+            console.log(xValues);
+            console.log(yValues);
 
             chartInstance = echarts.init(document.getElementById('container'));
 
