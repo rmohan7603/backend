@@ -192,7 +192,7 @@
         <label for="graphType">Select Graph Type:</label>
         <select id="graphType" onchange="updateGraphType()">
             <option value="line">Line Chart</option>
-            <option value="bar">Bar Chart</option>
+            <!-- <option value="bar">Bar Chart</option> -->
             <option value="area">Area Chart</option>
             <option value="scatter">Scatter Chart</option>
         </select>
@@ -331,6 +331,13 @@
                 renderChart(cachedData);
             }
         }
+        
+        /* function calculatePercentile(data, percentile) {
+            const sorted = [...data].sort((a, b) => a - b);
+            const index = Math.ceil((percentile / 100) * sorted.length) - 1;
+            console.log(sorted[index]);
+            return sorted[index];
+        } */
 
         function handleTimeFrameChange() {
             const filterValue = document.getElementById('filter').value;
@@ -408,7 +415,7 @@
                     nameGap: 100,
                     axisLabel: {
                         interval: 0,
-                        rotate: 45
+                        rotate: 90
                     }
                 },
                 yAxis: { 
@@ -419,7 +426,6 @@
                 }
             };
         }
-
 
         function getLineChartOptions(xValues, yValues) {
             const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
@@ -452,7 +458,7 @@
             return options;
         }
 
-        function getBarChartOptions(xValues, yValues) {
+        /* function getBarChartOptions(xValues, yValues) {
             const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
             options.series = [{
                 name: 'Usage',
@@ -482,7 +488,7 @@
                 }
             }];
             return options;
-        }
+        } */
 
         function getAreaChartOptions(xValues, yValues) {
             const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
@@ -563,6 +569,7 @@
             	  return date.toISOString().split('T')[0];
             	}); */
             const yValues = data.map(item => item.usageValue);
+            //const percentile95 = calculatePercentile(yValues, 95);
             
             console.log(xValues);
             console.log(yValues);
@@ -574,9 +581,9 @@
                 case 'line':
                     options = getLineChartOptions(xValues, yValues);
                     break;
-                case 'bar':
+                /* case 'bar':
                     options = getBarChartOptions(xValues, yValues);
-                    break;
+                    break; */
                 case 'area':
                     options = getAreaChartOptions(xValues, yValues);
                     break;
