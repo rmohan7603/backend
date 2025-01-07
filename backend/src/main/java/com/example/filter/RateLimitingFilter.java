@@ -10,23 +10,27 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @WebFilter("/*")
 public class RateLimitingFilter implements Filter {
 
     private static final Logger logger = LogManager.getLogger(RateLimitingFilter.class);
 
-    private static final long TIME_WINDOW_MS = 60_000;
     private static final int MAX_REQUESTS = 60;
+    private static final Duration TIME_WINDOW = Duration.ofMinutes(1);
 
-    private final Map<String, ConcurrentLinkedQueue<Long>> requestTimestamps = new ConcurrentHashMap<>();
+    private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
@@ -42,38 +46,21 @@ public class RateLimitingFilter implements Filter {
         }
 
         String clientIp = getClientIp(request);
-        long currentTime = System.currentTimeMillis();
+        Bucket bucket = buckets.computeIfAbsent(clientIp, this::createNewBucket);
 
-        boolean allowed = isAllowed(clientIp, currentTime);
-
-        if (!allowed) {
+        if (bucket.tryConsume(1)) {
+            logger.info("Request allowed for IP: {}", clientIp);
+            chain.doFilter(request, response);
+        } else {
             logger.warn("Rate limit exceeded for IP: {}", clientIp);
             response.setStatus(429);
             response.getWriter().write("{\"error\": \"Too many requests. Please try again later.\"}");
-            return;
         }
-
-        logger.info("Request allowed for IP: {}", clientIp);
-        chain.doFilter(request, response);
     }
 
-    private boolean isAllowed(String clientIp, long currentTime) {
-        requestTimestamps.putIfAbsent(clientIp, new ConcurrentLinkedQueue<>());
-
-        ConcurrentLinkedQueue<Long> timestamps = requestTimestamps.get(clientIp);
-
-        synchronized (timestamps) {
-            while (!timestamps.isEmpty() && timestamps.peek() < currentTime - TIME_WINDOW_MS) {
-                timestamps.poll();
-            }
-
-            if (timestamps.size() < MAX_REQUESTS) {
-                timestamps.offer(currentTime);
-                return true;
-            }
-
-            return false;
-        }
+    private Bucket createNewBucket(String clientIp) {
+        Bandwidth limit = Bandwidth.classic(MAX_REQUESTS, Refill.greedy(MAX_REQUESTS, TIME_WINDOW));
+        return Bucket.builder().addLimit(limit).build();
     }
 
     private String getClientIp(HttpServletRequest request) {

@@ -1,32 +1,41 @@
 package com.example.model;
 
 public class ChartData {
-    private String usageDate;
-    private int usageValue;
+    private String label;
+    private String userId;
+    private int totalUsage;
 
-    public ChartData() {}
-    public ChartData(String usageDate, int usageValue) {
-        this.usageDate = usageDate;
-        this.usageValue = usageValue;
+    public ChartData(String label, String userId, int totalUsage) {
+        this.label = label;
+        this.userId = userId;
+        this.totalUsage = totalUsage;
     }
 
-    public String getUsageDate() {
-        return usageDate;
+    public String getLabel() {
+        return label;
     }
 
-    public void setUsageDate(String usageDate) {
-        this.usageDate = usageDate;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public int getUsageValue() {
-        return usageValue;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUsageValue(int usageValue) {
-        this.usageValue = usageValue;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public int getTotalUsage() {
+        return totalUsage;
+    }
+
+    public void setTotalUsage(int totalUsage) {
+        this.totalUsage = totalUsage;
     }
     
     public String toString() {
-		return usageDate+" "+usageValue;
+		return label+" "+userId+" "+totalUsage;
 	}
 }

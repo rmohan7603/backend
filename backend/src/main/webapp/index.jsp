@@ -194,7 +194,7 @@
             <option value="line">Line Chart</option>
             <!-- <option value="bar">Bar Chart</option> -->
             <option value="area">Area Chart</option>
-            <option value="scatter">Scatter Chart</option>
+            <!-- <option value="scatter">Scatter Chart</option> -->
         </select>
     </form>
 
@@ -234,372 +234,251 @@
         }
     %>
     <script>
-        let currentGraphType = 'line';
-        let cachedData = null;
-        let currentFilter = 'previousquarter';
-        let chartInstance = null;
+    let currentGraphType = 'line'; 
+    let cachedData = null;
+    let currentFilter = 'previousquarter';
+    let chartInstance = null;
 
-        window.addEventListener('DOMContentLoaded', (event) => {
+    window.addEventListener('DOMContentLoaded', (event) => {
+        preserveFilters();
+        loadDefaultChart();
+    });
 
-            // 1. Reset to default values on refresh
-            //resetToDefaults();
-            // 2. Preserve filters on refresh
-            preserveFilters();
+    window.addEventListener('resize', function () {
+        if (chartInstance) {
+            chartInstance.resize();
+        }
+    });
 
-            loadDefaultChart();
-        });
+    function preserveFilters() {
+        const savedGraphType = sessionStorage.getItem('graphType') || 'line';
+        const savedFilter = sessionStorage.getItem('filter') || 'previousquarter';
+        document.getElementById('graphType').value = savedGraphType;
+        document.getElementById('filter').value = savedFilter;
+        currentGraphType = savedGraphType;
+        currentFilter = savedFilter;
+    }
 
-        window.addEventListener('resize', function() {
-            if (chartInstance) {
-                chartInstance.resize();
-            }
-        });
-        
-        function resetToDefaults() {
-            document.getElementById('filter').value = 'previousquarter';
-            document.getElementById('graphType').value = 'line';
+    function saveFilters() {
+        sessionStorage.setItem('graphType', currentGraphType);
+        sessionStorage.setItem('filter', currentFilter);
+    }
+
+    function loadDefaultChart() {
+        loadFilteredChart(currentFilter);
+    }
+
+    function loadFilteredChart(event) {
+        if (event && event.preventDefault) {
+            event.preventDefault();
         }
 
-        function preserveFilters() {
-            const savedGraphType = sessionStorage.getItem('graphType') || 'line';
-            const savedFilter = sessionStorage.getItem('filter') || 'previousquarter';
-            document.getElementById('graphType').value = savedGraphType;
-            document.getElementById('filter').value = savedFilter;
-            currentGraphType = savedGraphType;
-            currentFilter = savedFilter;
+        const filter = typeof event === 'string' ? event : document.getElementById('filter').value;
+
+
+        if (filter === currentFilter && cachedData) {
+            renderChart(cachedData);
+            return;
         }
 
-        function saveFilters() {
-            sessionStorage.setItem('graphType', currentGraphType);
-            sessionStorage.setItem('filter', currentFilter);
-        }
+        currentFilter = filter;
+        saveFilters();
 
-        function closeMessage() {
-            const messageElement = document.getElementById('statusMessage');
-            if (messageElement) {
-                messageElement.classList.add('fade-out');
-            }
-        }
-
-        function loadDefaultChart() {
-            loadFilteredChart(currentFilter);
-        }
-
-        function loadFilteredChart(event) {
-            if (event && event.preventDefault) {
-                event.preventDefault();
-            }
-
-            const filter = typeof event === 'string' ? event : document.getElementById('filter').value;
-
-            if (filter === currentFilter && cachedData) {
-                renderChart(cachedData);
-                return;
-            }
-
-            currentFilter = filter;
-
-            fetch('chart-data', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ filter: filter })
+        fetch('chart-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ filter: filter })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data || !Array.isArray(data)) {
-                        throw new Error('Invalid data format received');
-                    }
-                    cachedData = data;
-                    renderChart(data);
-                })
-                .catch(error => {
-                    console.error('Error loading filtered chart data:', error);
-                    alert('Failed to load filtered chart data. Please try again later.');
-                });
+            .then(data => {
+                if (!data || !Array.isArray(data)) {
+                    throw new Error('Invalid data format received');
+                }
+                cachedData = data;
+                renderChart(data);
+            })
+            .catch(error => {
+            	console.error('Error loading filtered chart data:', error);
+                //alert('Failed to load filtered chart data. Please try again later.');
+            });
+    }
+
+    function updateGraphType() {
+        currentGraphType = document.getElementById('graphType').value;
+        saveFilters();
+
+        if (cachedData) {
+            renderChart(cachedData);
+        }
+    }
+
+    function disposeChart() {
+        if (chartInstance) {
+            chartInstance.dispose();
+        }
+    }
+
+    function stringToColor(str) {
+    	let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            hash = str.charCodeAt(i) + ((hash << 5) - hash);
         }
 
-        function updateGraphType() {
-            currentGraphType = document.getElementById('graphType').value;
-            saveFilters();
+        const r = (hash >> 16) & 0xFF;
+        const g = (hash >> 8) & 0xFF;
+        const b = hash & 0xFF;
 
-            if (cachedData) {
-                renderChart(cachedData);
-            }
+        return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+    
+    function processChartData(data) {
+        const labels = [...new Set(data.map(item => item.label))];
+        const userIds = [...new Set(data.map(item => item.userId))];
+
+        //console.log(labels);
+        //console.log(userIds);
+                
+        const series = userIds.map(userId => {
+            const userData = labels.map(label => {
+                const point = data.find(d => d.userId === userId && d.label === label);
+                return point ? point.totalUsage : 0;
+            });
+            console.log(userId);
+            return {
+                name: userId,
+                type: currentGraphType,
+                smooth: true,
+                label: {
+                    show: true,
+                    position: 'top'
+                },
+                areaStyle: currentGraphType === "area" ? {} :null,
+                emphasis: {
+                    focus: 'series'
+                },
+                data: userData,
+                color: stringToColor(userId)
+            };
+        });
+        
+        return { labels, series };
+    }
+
+    function renderStackedLineChart(labels, series) {
+    	console.log(series);
+        return {
+            title: {
+                text: 'TREND ANALYSIS - Stacked Line Chart',
+                left: 'center',
+                top: 10,
+            },
+            tooltip: { trigger: 'axis' },
+            legend: {
+                data: series.map(s => s.name),
+                top: 'bottom',
+                selectedMode: 'multiple',
+            },
+            grid: { left: '3%', right: '4%', bottom: '10%', top: '15%', containLabel: true },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    start: 0,
+                    end: 100,
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                name: 'Time Frame',
+                nameLocation: 'middle',
+                nameGap: 50,
+                boundaryGap: false,
+                data: labels,
+            },
+            yAxis: { type: 'value',name: 'Usage Value',
+                nameLocation: 'middle', nameGap: 50 },
+            series: series.map(s => ({
+                ...s,
+                type: 'line',
+                smooth: false,
+            })),
+        };
+    }
+
+    function renderStackedAreaChart(labels, series) {
+        return {
+            title: {
+                text: 'TREND ANALYSIS - Stacked Area Chart',
+                left: 'center',
+                top: 10,
+            },
+            tooltip: { trigger: 'axis' },
+            legend: {
+                data: series.map(s => s.name),
+                top: 'bottom',
+                selectedMode: 'multiple',
+            },
+            grid: { left: '3%', right: '4%', bottom: '10%', top: '15%', containLabel: true },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    start: 0,
+                    end: 100,
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                name: 'Time Frame',
+                nameLocation: 'middle',
+                nameGap: 50,
+                boundaryGap: false,
+                data: labels,
+            },
+            yAxis: { type: 'value',name: 'Usage Value',
+                nameLocation: 'middle', nameGap: 50 },
+            series: series.map(s => ({
+                ...s,
+                type: 'line',
+                areaStyle: {},
+                smooth: true,
+            })),
+        };
+    }
+
+    function renderChart(data) {
+        disposeChart();
+        
+        if (!data || data.length === 0) {
+        	document.getElementById('container').innerHTML = 
+        	    `<div style="display: flex; align-items: center; justify-content: center; height: 100px; width: 250px; border: 2px solid #ccc; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin: auto;">
+        	        <p style="font-size: 18px; color: #666; margin: 0;">NO DATA AVAILABLE</p>
+        	    </div>`;
+        	return;
         }
         
-        /* function calculatePercentile(data, percentile) {
-            const sorted = [...data].sort((a, b) => a - b);
-            const index = Math.ceil((percentile / 100) * sorted.length) - 1;
-            console.log(sorted[index]);
-            return sorted[index];
-        } */
+        const { labels, series } = processChartData(data);
 
-        function handleTimeFrameChange() {
-            const filterValue = document.getElementById('filter').value;
-            loadFilteredChart(filterValue);
-            saveFilters();
+        let options;
+        if (currentGraphType === 'area') {
+            options = renderStackedAreaChart(labels, series);
+        } else if (currentGraphType === 'line') {
+            options = renderStackedLineChart(labels, series);
+        } else {
+            options = renderStackedLineChart(labels, series);
         }
 
-        function disposeChart() {
-            if (chartInstance) {
-                chartInstance.dispose();
-            }
-        }
+        chartInstance = echarts.init(document.getElementById('container'));
+        chartInstance.setOption(options);
+    }
 
-        function fetchDataAndRenderChart() {
-            currentGraphType = document.getElementById('chartType').value;
-            fetch('DataServlet')
-                .then(response => response.json())
-                .then(data => renderChart(data))
-                .catch(error => console.error('Error fetching data:', error));
-        }
-
-        function getCommonOptions(xValues, yValues, title) {
-            return {
-                title: { 
-                    text: title,
-                    left: 'center',
-                    top: 20
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: { type: 'shadow' }
-                },
-                grid: {
-                    left: '10%',
-                    right: '10%',
-                    bottom: '15%',
-                    top: '15%',
-                    containLabel: true
-                },
-                dataZoom: [
-                    {
-                        type: 'slider',
-                        show: true,
-                        xAxisIndex: [0],
-                        start: 0,
-                        end: 100,
-                        bottom: 10
-                    },
-                    {
-                        type: 'slider',
-                        show: true,
-                        yAxisIndex: [0],
-                        left: '3%',
-                        start: 0,
-                        end: 100
-                    },
-                    {
-                        type: 'inside',
-                        xAxisIndex: [0],
-                        start: 0,
-                        end: 100
-                    },
-                    /*{
-                        type: 'inside',
-                        yAxisIndex: [0],
-                        start: 0,
-                        end: 100
-                    }*/
-                ],
-                xAxis: { 
-                    type: 'category',
-                    data: xValues,
-                    name: 'Time Frame',
-                    nameLocation: 'middle',
-                    nameGap: 100,
-                    axisLabel: {
-                        interval: 0,
-                        rotate: 90
-                    }
-                },
-                yAxis: { 
-                    type: 'value',
-                    name: 'Usage Value',
-                    nameLocation: 'middle',
-                    nameGap: 70
-                }
-            };
-        }
-
-        function getLineChartOptions(xValues, yValues) {
-            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
-            options.series = [{
-                name: 'Usage',
-                type: 'line',
-                data: yValues,
-                itemStyle: { color: '#a294f9' },
-                markPoint: {
-                    data: [
-                        { type: 'max', name: 'Maximum', label: { 
-                            position: 'top',
-                            formatter: 'Max: {c}' }
-                        },
-                        { type: 'min', name: 'Minimum', label: { 
-                            position: 'top',
-                            formatter: 'Min: {c}' }
-                        }
-                    ]
-                },
-                markLine: {
-                    data: [{ type: 'average', name: 'Average' }],
-                    label: {
-                        formatter: 'Avg: {c}',
-                        position: 'insideEndTop',
-                        fontSize: 12
-                    }
-                }
-            }];
-            return options;
-        }
-
-        /* function getBarChartOptions(xValues, yValues) {
-            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
-            options.series = [{
-                name: 'Usage',
-                type: 'bar',
-                data: yValues,
-                itemStyle: { color: '#a294f9' },
-                barWidth: '50%',
-                markPoint: {
-                    data: [
-                        { type: 'max', name: 'Maximum', label: { 
-                            position: 'top',
-                            formatter: 'Max: {c}' }
-                        },
-                        { type: 'min', name: 'Minimum', label: { 
-                            position: 'top',
-                            formatter: 'Min: {c}' }
-                        }
-                    ]
-                },
-                markLine: {
-                    data: [{ type: 'average', name: 'Average' }],
-                    label: {
-                        formatter: 'Avg: {c}',
-                        position: 'insideEndTop',
-                        fontSize: 12
-                    }
-                }
-            }];
-            return options;
-        } */
-
-        function getAreaChartOptions(xValues, yValues) {
-            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
-            options.series = [{
-                name: 'Usage',
-                type: 'line',
-                data: yValues,
-                areaStyle: {
-                    color: '#82eefd',
-                    opacity: 0.3
-                },
-                itemStyle: { color: '#a294f9' },
-                smooth: true,
-                markPoint: {
-                    data: [
-                        { type: 'max', name: 'Maximum', label: { 
-                            position: 'top',
-                            formatter: 'Max: {c}' }
-                        },
-                        { type: 'min', name: 'Minimum', label: { 
-                            position: 'top',
-                            formatter: 'Min: {c}' }
-                        }
-                    ]
-                },
-                markLine: {
-                    data: [{ type: 'average', name: 'Average' }],
-                    label: {
-                        formatter: 'Avg: {c}',
-                        position: 'insideEndTop',
-                        fontSize: 12
-                    }
-                }
-            }];
-            return options;
-        }
-
-        function getScatterChartOptions(xValues, yValues) {
-            const options = getCommonOptions(xValues, yValues, 'USAGE DATA');
-            options.series = [{
-                name: 'Usage',
-                type: 'scatter',
-                data: yValues,
-                symbolSize: 20,
-                itemStyle: { color: '#a294f9' },
-                markPoint: {
-                    data: [
-                        { type: 'max', name: 'Maximum', label: { 
-                            position: 'top',
-                            formatter: 'Max: {c}' }
-                        },
-                        { type: 'min', name: 'Minimum', label: { 
-                            position: 'top',
-                            formatter: 'Min: {c}' }
-                        }
-                    ]
-                },
-                markLine: {
-                    data: [{ type: 'average', name: 'Average' }],
-                    label: {
-                        formatter: 'Avg: {c}',
-                        position: 'insideEndTop',
-                        fontSize: 12
-                    }
-                }
-            }];
-            return options;
-        }
-
-        function renderChart(data) {
-            disposeChart();
-            
-            console.log(data);
-            
-            const xValues = data.map(item => item.usageDate);
-            /* const xValues = tempData.map(item => {
-            	  const date = new Date(item * 1000);
-            	  return date.toISOString().split('T')[0];
-            	}); */
-            const yValues = data.map(item => item.usageValue);
-            //const percentile95 = calculatePercentile(yValues, 95);
-            
-            console.log(xValues);
-            console.log(yValues);
-
-            chartInstance = echarts.init(document.getElementById('container'));
-
-            let options;
-            switch (currentGraphType) {
-                case 'line':
-                    options = getLineChartOptions(xValues, yValues);
-                    break;
-                /* case 'bar':
-                    options = getBarChartOptions(xValues, yValues);
-                    break; */
-                case 'area':
-                    options = getAreaChartOptions(xValues, yValues);
-                    break;
-                case 'scatter':
-                    options = getScatterChartOptions(xValues, yValues);
-                    break;
-                default:
-                    options = getLineChartOptions(xValues, yValues);
-            }
-
-            chartInstance.setOption(options);
-        }
+    document.getElementById('filter').addEventListener('change', loadFilteredChart);
+    document.getElementById('graphType').addEventListener('change', updateGraphType);
+</script>
 
 
-        document.getElementById('filter').addEventListener('change', handleTimeFrameChange);
-        document.getElementById('graphType').addEventListener('change', updateGraphType);
-    </script>
 </body>
 </html>

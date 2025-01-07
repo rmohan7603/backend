@@ -89,8 +89,9 @@ public class ChartDataServlet extends HttpServlet {
             UsageDataService usageDataService = new UsageDataService();
             List<ChartData> chartData = usageDataService.getChartData(filter);
             
-            for(ChartData data:chartData)
-            	System.out.println(data.toString());
+			/*
+			 * for(ChartData data:chartData) System.out.println(data.toString());
+			 */
             
             response.setContentType("application/json");
             response.getWriter().write(new Gson().toJson(chartData));

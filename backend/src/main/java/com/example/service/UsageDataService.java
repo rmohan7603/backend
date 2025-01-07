@@ -62,14 +62,10 @@ public class UsageDataService {
     
     public List<ChartData> getChartData(String filter) throws ClassNotFoundException {
         String baseQuery = QueryLoader.getQuery("getChartDataBase");
-        String groupByQuery = determineGroupBy(filter);
-
-        if (groupByQuery == null) {
-            throw new IllegalArgumentException("Invalid filter specified for chart data.");
-        }
 
         String labelQuery = getLabelQuery(filter);
-        String fullQuery = baseQuery.replace("{label_query}", labelQuery) + " " + groupByQuery;
+        String groupQuery = getGroupQuery(filter);
+        String fullQuery = baseQuery.replace("{label_query}", labelQuery) + " " + groupQuery;
 
         long currentEpoch = System.currentTimeMillis() / 1000;
         long[] timeRange = getTimeRange(filter, currentEpoch);
@@ -87,9 +83,10 @@ public class UsageDataService {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    String label = resultSet.getString("label");
+                	String label = resultSet.getString("label");
+                    String userId = resultSet.getString("user_id");
                     int totalUsage = resultSet.getInt("total_usage");
-                    chartDataList.add(new ChartData(label, totalUsage));
+                    chartDataList.add(new ChartData(label, userId, totalUsage));
                 }
             }
         } catch (SQLException e) {
@@ -104,44 +101,38 @@ public class UsageDataService {
             case "today":
             case "yesterday":
             case "last24hours":
-                return "TIME(FROM_UNIXTIME(epoch))";
+                return "DATE_FORMAT(FROM_UNIXTIME(epoch), '%r')";
             case "thisweek":
             case "lastweek":
-                return "DAYNAME(FROM_UNIXTIME(epoch))";
             case "thismonth":
             case "lastmonth":
-                return "DAY(FROM_UNIXTIME(epoch))";
             case "thisyear":
             case "lastyear":
             case "previousquarter":
             case "previoushalf":
-                return "MONTHNAME(FROM_UNIXTIME(epoch))";
             case "total":
-                return "YEAR(FROM_UNIXTIME(epoch))";
+                return "DATE_FORMAT(DATE(FROM_UNIXTIME(epoch)),GET_FORMAT(DATE,'EUR'))";
             default:
                 throw new IllegalArgumentException("Unsupported filter for label query.");
         }
     }
 
-    private String determineGroupBy(String filter) {
+    private String getGroupQuery(String filter) {
         switch (filter.toLowerCase()) {
             case "today":
             case "yesterday":
             case "last24hours":
-                return QueryLoader.getQuery("getChartDataGroupByTime");
+                return "group by user_id, DATE_FORMAT(FROM_UNIXTIME(epoch), '%r') order by DATE_FORMAT(FROM_UNIXTIME(epoch), '%r')";
             case "thisweek":
             case "lastweek":
-                return QueryLoader.getQuery("getChartDataGroupByDayOfWeek");
             case "thismonth":
             case "lastmonth":
-                return QueryLoader.getQuery("getChartDataGroupByDateOfMonth");
             case "thisyear":
             case "lastyear":
             case "previousquarter":
             case "previoushalf":
-                return QueryLoader.getQuery("getChartDataGroupByMonth");
             case "total":
-                return QueryLoader.getQuery("getChartDataGroupByYear");
+                return "group by user_id, DATE_FORMAT(DATE(FROM_UNIXTIME(epoch)),GET_FORMAT(DATE,'EUR')) order by DATE_FORMAT(DATE(FROM_UNIXTIME(epoch)),GET_FORMAT(DATE,'EUR'))";
             default:
                 throw new IllegalArgumentException("Unsupported filter for grouping.");
         }
