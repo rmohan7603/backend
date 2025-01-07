@@ -40,7 +40,7 @@ public class ChartDataServlet extends HttpServlet {
             String[] createTableQueries = {
                 QueryLoader.getQuery("create_table_admin"),
                 QueryLoader.getQuery("create_table_upload_metadata"),
-                QueryLoader.getQuery("create_table_usage_table")
+                QueryLoader.getQuery("create_table_usage_data")
             };
 
             for (String query : createTableQueries) {
