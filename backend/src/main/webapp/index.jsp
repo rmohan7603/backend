@@ -249,6 +249,25 @@
         	    chartInstance.resize();
         	}
     	});
+	    
+	    window.addEventListener('load', () => {
+            const statusMessage = document.getElementById('statusMessage');
+            if (statusMessage) {
+                setTimeout(() => {
+                    closeMessage();
+                }, 3000);
+            }
+        });
+	    
+	    function closeMessage() {
+            const statusMessage = document.getElementById('statusMessage');
+            if (statusMessage) {
+                statusMessage.classList.add('fade-out');
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 2000);
+            }
+        }
 
     	function preserveFilters() {
         	const savedGraphType = sessionStorage.getItem('graphType') || 'line';
