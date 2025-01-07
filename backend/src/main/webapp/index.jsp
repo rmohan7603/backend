@@ -234,251 +234,212 @@
         }
     %>
     <script>
-    let currentGraphType = 'line'; 
-    let cachedData = null;
-    let currentFilter = 'previousquarter';
-    let chartInstance = null;
+    	let currentGraphType = 'line'; 
+    	let cachedData = null;
+    	let currentFilter = 'previousquarter';
+    	let chartInstance = null;
 
-    window.addEventListener('DOMContentLoaded', (event) => {
-        preserveFilters();
-        loadDefaultChart();
-    });
+	    window.addEventListener('DOMContentLoaded', (event) => {
+    	    preserveFilters();
+        	loadDefaultChart();
+    	});
 
-    window.addEventListener('resize', function () {
-        if (chartInstance) {
-            chartInstance.resize();
-        }
-    });
+	    window.addEventListener('resize', function () {
+    	    if (chartInstance) {
+        	    chartInstance.resize();
+        	}
+    	});
 
-    function preserveFilters() {
-        const savedGraphType = sessionStorage.getItem('graphType') || 'line';
-        const savedFilter = sessionStorage.getItem('filter') || 'previousquarter';
-        document.getElementById('graphType').value = savedGraphType;
-        document.getElementById('filter').value = savedFilter;
-        currentGraphType = savedGraphType;
-        currentFilter = savedFilter;
-    }
+    	function preserveFilters() {
+        	const savedGraphType = sessionStorage.getItem('graphType') || 'line';
+        	const savedFilter = sessionStorage.getItem('filter') || 'previousquarter';
+        	document.getElementById('graphType').value = savedGraphType;
+        	document.getElementById('filter').value = savedFilter;
+        	currentGraphType = savedGraphType;
+        	currentFilter = savedFilter;
+    	}
 
-    function saveFilters() {
-        sessionStorage.setItem('graphType', currentGraphType);
-        sessionStorage.setItem('filter', currentFilter);
-    }
+	    function saveFilters() {
+    	    sessionStorage.setItem('graphType', currentGraphType);
+        	sessionStorage.setItem('filter', currentFilter);
+    	}
 
-    function loadDefaultChart() {
-        loadFilteredChart(currentFilter);
-    }
+    	function loadDefaultChart() {
+        	loadFilteredChart(currentFilter);
+    	}
 
-    function loadFilteredChart(event) {
-        if (event && event.preventDefault) {
-            event.preventDefault();
-        }
+    	function loadFilteredChart(event) {
+        	if (event && event.preventDefault) {
+            	event.preventDefault();
+        	}
 
-        const filter = typeof event === 'string' ? event : document.getElementById('filter').value;
+        	const filter = typeof event === 'string' ? event : document.getElementById('filter').value;
 
 
-        if (filter === currentFilter && cachedData) {
-            renderChart(cachedData);
-            return;
-        }
+        	if (filter === currentFilter && cachedData) {
+            	renderChart(cachedData);
+            	return;
+        	}
 
-        currentFilter = filter;
-        saveFilters();
+        	currentFilter = filter;
+        	saveFilters();
 
-        fetch('chart-data', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ filter: filter })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (!data || !Array.isArray(data)) {
-                    throw new Error('Invalid data format received');
-                }
-                cachedData = data;
-                renderChart(data);
-            })
-            .catch(error => {
-            	console.error('Error loading filtered chart data:', error);
-                //alert('Failed to load filtered chart data. Please try again later.');
-            });
-    }
+        	fetch('chart-data', {
+            	method: 'POST',
+            	headers: { 'Content-Type': 'application/json' },
+            	body: JSON.stringify({ filter: filter })
+        	})
+            	.then(response => {
+                	if (!response.ok) {
+                    	throw new Error('Network response was not ok');
+                	}
+                	return response.json();
+            	})
+            	.then(data => {
+                	if (!data || !Array.isArray(data)) {
+                    	throw new Error('Invalid data format received');
+                	}
+                	cachedData = data;
+                	renderChart(data);
+            	})
+            	.catch(error => {
+            		console.error('Error loading filtered chart data:', error);
+	            });
+    	}
 
-    function updateGraphType() {
-        currentGraphType = document.getElementById('graphType').value;
-        saveFilters();
+    	function updateGraphType() {
+        	currentGraphType = document.getElementById('graphType').value;
+        	saveFilters();
 
-        if (cachedData) {
-            renderChart(cachedData);
-        }
-    }
+	        if (cachedData) {
+	            renderChart(cachedData);
+        	}
+    	}
 
-    function disposeChart() {
-        if (chartInstance) {
-            chartInstance.dispose();
-        }
-    }
+    	function disposeChart() {
+        	if (chartInstance) {
+            	chartInstance.dispose();
+        	}
+    	}
+    	
+    	const utils = {
+    			stringToColor: function (str) {
+    			    let hash = 0;
+    			    for (let i = 0; i < str.length; i++) {
+    			        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    			    }
 
-    function stringToColor(str) {
-    	let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            hash = str.charCodeAt(i) + ((hash << 5) - hash);
-        }
+    			    const hue = Math.abs(hash) % 360;
 
-        const r = (hash >> 16) & 0xFF;
-        const g = (hash >> 8) & 0xFF;
-        const b = hash & 0xFF;
+    			    const saturation = 70;
+    			    const lightness = 50;
 
-        return "rgb(" + r + ", " + g + ", " + b + ")";
-    }
-    
-    function processChartData(data) {
-        const labels = [...new Set(data.map(item => item.label))];
-        const userIds = [...new Set(data.map(item => item.userId))];
+    			    return "hsl("+hue+","+saturation+"%,"+lightness+"%)";
+    			},
 
-        //console.log(labels);
-        //console.log(userIds);
-                
-        const series = userIds.map(userId => {
-            const userData = labels.map(label => {
-                const point = data.find(d => d.userId === userId && d.label === label);
-                return point ? point.totalUsage : 0;
-            });
-            console.log(userId);
-            return {
-                name: userId,
-                type: currentGraphType,
-                smooth: true,
-                label: {
-                    show: true,
-                    position: 'top'
-                },
-                areaStyle: currentGraphType === "area" ? {} :null,
-                emphasis: {
-                    focus: 'series'
-                },
-                data: userData,
-                color: stringToColor(userId)
-            };
-        });
-        
-        return { labels, series };
-    }
+        	processChartData: function (data) {
+            	const labels = [...new Set(data.map((item) => item.label))];
+            	const userIds = [...new Set(data.map((item) => item.userId))];
 
-    function renderStackedLineChart(labels, series) {
-    	console.log(series);
-        return {
-            title: {
-                text: 'TREND ANALYSIS - Stacked Line Chart',
-                left: 'center',
-                top: 10,
-            },
-            tooltip: { trigger: 'axis' },
-            legend: {
-                data: series.map(s => s.name),
-                top: 'bottom',
-                selectedMode: 'multiple',
-            },
-            grid: { left: '3%', right: '4%', bottom: '10%', top: '15%', containLabel: true },
-            dataZoom: [
-                {
-                    type: 'inside',
-                    start: 0,
-                    end: 100,
-                },
-            ],
-            xAxis: {
-                type: 'category',
-                name: 'Time Frame',
-                nameLocation: 'middle',
-                nameGap: 50,
-                boundaryGap: false,
-                data: labels,
-            },
-            yAxis: { type: 'value',name: 'Usage Value',
-                nameLocation: 'middle', nameGap: 50 },
-            series: series.map(s => ({
-                ...s,
-                type: 'line',
-                smooth: false,
-            })),
-        };
-    }
+            	const series = userIds.map((userId) => {
+                	const userData = labels.map((label) => {
+                    	const point = data.find((d) => d.userId === userId && d.label === label);
+                    	return point ? point.totalUsage : 0;
+                	});
+                	return {
+                    	name: userId,
+                    	smooth: true,
+                    	data: userData,
+                    	color: this.stringToColor(userId),
+                    	label: {
+                        	show: true,
+                        	position: 'top'
+                      	},
+                    	emphasis: {
+                        	focus: 'series'
+                    	}
+                	};
+            	});
 
-    function renderStackedAreaChart(labels, series) {
-        return {
-            title: {
-                text: 'TREND ANALYSIS - Stacked Area Chart',
-                left: 'center',
-                top: 10,
-            },
-            tooltip: { trigger: 'axis' },
-            legend: {
-                data: series.map(s => s.name),
-                top: 'bottom',
-                selectedMode: 'multiple',
-            },
-            grid: { left: '3%', right: '4%', bottom: '10%', top: '15%', containLabel: true },
-            dataZoom: [
-                {
-                    type: 'inside',
-                    start: 0,
-                    end: 100,
-                },
-            ],
-            xAxis: {
-                type: 'category',
-                name: 'Time Frame',
-                nameLocation: 'middle',
-                nameGap: 50,
-                boundaryGap: false,
-                data: labels,
-            },
-            yAxis: { type: 'value',name: 'Usage Value',
-                nameLocation: 'middle', nameGap: 50 },
-            series: series.map(s => ({
-                ...s,
-                type: 'line',
-                areaStyle: {},
-                smooth: true,
-            })),
-        };
-    }
+            	return { labels, series };
+        	},
+    	};
 
-    function renderChart(data) {
-        disposeChart();
-        
-        if (!data || data.length === 0) {
-        	document.getElementById('container').innerHTML = 
-        	    `<div style="display: flex; align-items: center; justify-content: center; height: 100px; width: 250px; border: 2px solid #ccc; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin: auto;">
-        	        <p style="font-size: 18px; color: #666; margin: 0;">NO DATA AVAILABLE</p>
-        	    </div>`;
-        	return;
-        }
-        
-        const { labels, series } = processChartData(data);
+    	function renderChartBase(labels, series, options = {}) {
+        	return {
+            	title: {
+                	text: `TREND ANALYSIS`,
+                	left: "center",
+                	top: 10,
+            	},
+            	toolbox: {
+                	feature: {
+                  		saveAsImage: {}
+                	}
+              	},
+            	tooltip: {
+                	trigger: "axis",
+                	axisPointer: { type: "cross", label: { backgroundColor: "#6a7985" } },
+            	},
+            	legend: {
+                	data: series.map((s) => s.name),
+                	top: "bottom",
+                	selectedMode: "multiple",
+            	},
+            	grid: { left: "3%", right: "4%", bottom: "10%", top: "15%", containLabel: true },
+            	dataZoom: [
+                	{ type: "inside", start: 0, end: 100 },
+            	],
+            	xAxis: {
+                	type: "category",
+                	name: "Time Frame",
+                	nameLocation: "middle",
+                	nameGap: 50,
+                	boundaryGap: false,
+                	data: labels,
+            	},
+            	yAxis: {
+                	type: "value",
+                	name: "Usage Value",
+                	nameLocation: "middle",
+                	nameGap: 50,
+            	},
+            	series: series.map((s) => ({
+                	...s,
+                	type: "line",
+                	areaStyle: options.areaStyle ? {} : null,
+            	})),
+        	};
+    	}
 
-        let options;
-        if (currentGraphType === 'area') {
-            options = renderStackedAreaChart(labels, series);
-        } else if (currentGraphType === 'line') {
-            options = renderStackedLineChart(labels, series);
-        } else {
-            options = renderStackedLineChart(labels, series);
-        }
+    	function renderChart(data) {
+        	disposeChart();
 
-        chartInstance = echarts.init(document.getElementById('container'));
-        chartInstance.setOption(options);
-    }
+        	if (!data || data.length === 0) {
+            	document.getElementById("container").innerHTML = `
+                	<div style="display: flex; align-items: center; justify-content: center; height: 100px; width: 250px; border: 2px solid #ccc; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin: auto;">
+                    	<p style="font-size: 18px; color: #666; margin: 0;">NO DATA AVAILABLE</p>
+                	</div>`;
+            	return;
+        	}
 
-    document.getElementById('filter').addEventListener('change', loadFilteredChart);
-    document.getElementById('graphType').addEventListener('change', updateGraphType);
-</script>
+        	const { labels, series } = utils.processChartData(data);
 
+        	const options = {
+            	chartType: currentGraphType === "area" ? "Stacked Area Chart" : "Stacked Line Chart",
+            	areaStyle: currentGraphType === "area",
+        	};
+
+        	const chartOptions = renderChartBase(labels, series, options);
+
+        	chartInstance = echarts.init(document.getElementById("container"));
+        	chartInstance.setOption(chartOptions);
+    	}
+
+    	document.getElementById('filter').addEventListener('change', loadFilteredChart);
+    	document.getElementById('graphType').addEventListener('change', updateGraphType);
+
+    </script>
 
 </body>
 </html>

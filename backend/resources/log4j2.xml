@@ -6,8 +6,8 @@
         </Console>
 
         <RollingFile name="RollingFileLogger" 
-                     fileName="/home/mohan-pt7758/eclipse-workspace/backend/logs/application.log"
-                     filePattern="/home/mohan-pt7758/eclipse-workspace/backend/logs/application-%d{yyyy-MM-dd}-%i.log">
+                     fileName="/home/mohan-pt7758/git/backend/backend/logs/application.log"
+                     filePattern="/home/mohan-pt7758/git/backend/backend/logs/application-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Pattern>
             </PatternLayout>
