@@ -13,11 +13,11 @@ import com.example.service.AdminService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@WebServlet(urlPatterns = "/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/auth")
+public class AuthenticationServlet extends HttpServlet {
     private AdminService adminService;
 
-    private static final Logger logger = LogManager.getLogger(LoginServlet.class);
+    private static final Logger logger = LogManager.getLogger(AuthenticationServlet.class);
 
     private static final int MAX_FAILED_ATTEMPTS = 3;
     private static final long COOLDOWN_PERIOD_MS = 3 * 60 * 1000;
@@ -73,6 +73,17 @@ public class LoginServlet extends HttpServlet {
             logger.error("Error during login", e);
             throw new ServletException("Error during login", e);
         }
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            logger.info("User is logging out. Invalidating session: {}", session.getId());
+            session.invalidate();
+        } else {
+            logger.warn("No session found for user. Logout attempt failed.");
+        }
+        response.sendRedirect("index.jsp");
     }
 
     private static class LoginAttemptInfo {

@@ -77,7 +77,7 @@
         <% if (request.getAttribute("error") != null) { %>
             <div class="error-message"><%= request.getAttribute("error") %></div>
         <% } %>
-        <form method="post" action="login">
+        <form method="post" action="auth">
             <input type="text" name="username" placeholder="Enter Username" required>
             <input type="password" name="password" placeholder="Enter Password" required>
             <button type="submit">Login</button>

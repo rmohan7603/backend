@@ -163,7 +163,7 @@
             %>
                 <p>Welcome, <%= username %>!</p>
                 <a href="upload.jsp">Upload New Data</a>
-                <button onclick="window.location.href='logout'">Logout</button>
+                <button onclick="window.location.href='auth'">Logout</button>
             <% } else { %>
                 <button onclick="window.location.href='login.jsp'">Admin Login</button>
             <% } %>
