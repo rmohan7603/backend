@@ -288,42 +288,41 @@
     	}
 
     	function loadFilteredChart(event) {
-        	if (event && event.preventDefault) {
-            	event.preventDefault();
-        	}
+    	    if (event && event.preventDefault) {
+    	        event.preventDefault();
+    	    }
 
-        	const filter = typeof event === 'string' ? event : document.getElementById('filter').value;
+    	    const filter = typeof event === 'string' ? event : document.getElementById('filter').value;
 
+    	    if (filter === currentFilter && cachedData) {
+    	        renderChart(cachedData);
+    	        return;
+    	    }
 
-        	if (filter === currentFilter && cachedData) {
-            	renderChart(cachedData);
-            	return;
-        	}
+    	    currentFilter = filter;
+    	    saveFilters();
 
-        	currentFilter = filter;
-        	saveFilters();
-
-        	fetch('chart-data', {
-            	method: 'POST',
-            	headers: { 'Content-Type': 'application/json' },
-            	body: JSON.stringify({ filter: filter })
-        	})
-            	.then(response => {
-                	if (!response.ok) {
-                    	throw new Error('Network response was not ok');
-                	}
-                	return response.json();
-            	})
-            	.then(data => {
-                	if (!data || !Array.isArray(data)) {
-                    	throw new Error('Invalid data format received');
-                	}
-                	cachedData = data;
-                	renderChart(data);
-            	})
-            	.catch(error => {
-            		console.error('Error loading filtered chart data:', error);
-	            });
+    	    fetch('chart-data', {
+    	        method: 'POST',
+    	        headers: { 'Content-Type': 'application/json' },
+    	        body: JSON.stringify({ filter: filter })
+    	    })
+    	        .then(response => {
+    	            if (!response.ok) {
+    	                throw new Error('Network response was not ok');
+    	            }
+    	            return response.json();
+    	        })
+    	        .then(data => {
+    	            if (data.status !== 'success' || !data.data || !Array.isArray(data.data)) {
+    	                throw new Error('Invalid data format received');
+    	            }
+    	            cachedData = data.data;
+    	            renderChart(cachedData);
+    	        })
+    	        .catch(error => {
+    	            console.error('Error loading filtered chart data:', error);
+    	        });
     	}
 
     	function updateGraphType() {

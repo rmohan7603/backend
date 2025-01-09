@@ -26,9 +26,9 @@ import org.apache.logging.log4j.Logger;
 @WebServlet("/chart-data")
 public class ChartDataServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    
+
     private static final Logger logger = LogManager.getLogger(ChartDataServlet.class);
-    
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -56,7 +56,7 @@ public class ChartDataServlet extends HttpServlet {
             throw new ServletException("Failed to initialize database tables", e);
         }
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("Handling GET request for chart data.");
@@ -75,30 +75,34 @@ public class ChartDataServlet extends HttpServlet {
             }
         }
         String json = jsonBuffer.toString();
-        String filter = new Gson().fromJson(json, JsonObject.class).get("filter").getAsString();
+
+        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
+        String filter = jsonObject.has("filter") ? jsonObject.get("filter").getAsString() : "previousquarter";
 
         processRequest(filter, response);
     }
 
     private void processRequest(String filter, HttpServletResponse response) throws IOException {
-        if (filter == null || filter.isEmpty()) {
-            filter = "previousquarter";
-        }
-
         try {
             UsageDataService usageDataService = new UsageDataService();
             List<ChartData> chartData = usageDataService.getChartData(filter);
-            
-			/*
-			 * for(ChartData data:chartData) System.out.println(data.toString());
-			 */
-            
+
+            JsonObject jsonResponse = new JsonObject();
+            jsonResponse.addProperty("status", "success");
+            jsonResponse.add("data", new Gson().toJsonTree(chartData));
+
             response.setContentType("application/json");
-            response.getWriter().write(new Gson().toJson(chartData));
+            response.getWriter().write(jsonResponse.toString());
         } catch (Exception e) {
             logger.error("Error processing request", e);
+
+            JsonObject errorResponse = new JsonObject();
+            errorResponse.addProperty("status", "error");
+            errorResponse.addProperty("message", "An error occurred while fetching chart data.");
+
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"error\": \"An error occurred while fetching chart data.\"}");
+            response.setContentType("application/json");
+            response.getWriter().write(errorResponse.toString());
         }
     }
 }
