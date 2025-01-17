@@ -1,0 +1,1160 @@
+2025-01-07 14:07:44 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 14:07:44 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:30:36 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:30:37 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:30:56 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:30:56 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:36:37 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:36:38 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:42 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:42 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:49 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:50 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:37:50 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:39:02 [http-nio-8080-exec-10] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:39:03 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:43:59 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:43:59 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:44:13 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:16 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:18 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:20 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:22 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:45:33 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:09 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:09 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:24 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:24 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:48 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:48:49 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:56:55 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:56:55 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:58:31 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 15:58:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 15:59:11 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:59:34 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:59:36 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 15:59:57 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:00:09 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:00:34 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:00:49 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:01:00 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:01:32 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:01:33 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:01:46 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:01:46 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:02:12 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:02:12 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:30 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:32 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:36 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:40 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:42 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:51 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:03:51 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:21 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:26 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:35 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:04:41 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:41 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:41 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:04:41 [http-nio-8080-exec-7] INFO  com.example.controller.LoginServlet - Login successful for user: admin
+2025-01-07 16:04:41 [http-nio-8080-exec-9] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:04:41 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:41 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:41 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:41 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:41 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:41 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:54 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:54 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:54 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:54 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:54 [http-nio-8080-exec-1] INFO  com.example.controller.UploadServlet - Received upload request. Admin ID: 1
+2025-01-07 16:04:54 [http-nio-8080-exec-1] INFO  com.example.controller.UploadServlet - File upload success for file: data1.csv
+2025-01-07 16:04:54 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:04:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:04:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:04:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:02 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:05:02 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:02 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:02 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:02 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:02 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:02 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:07 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:05:07 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:07 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:07 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:07 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:07 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:07 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:44 [http-nio-8080-exec-8] INFO  com.example.controller.LogoutServlet - User is logging out. Invalidating session: EB7506900953CFAEB5B355F87B794344
+2025-01-07 16:05:44 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:05:44 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:11:02 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:11:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:11:49 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:11:49 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:15:07 [http-nio-8080-exec-10] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:15:07 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:15:23 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:15:23 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:41 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:17:42 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 16:17:42 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 16:17:42 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 16:17:42 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:46 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:17:51 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:51 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:51 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:17:51 [http-nio-8080-exec-5] INFO  com.example.controller.LoginServlet - Login successful for user: admin
+2025-01-07 16:17:52 [http-nio-8080-exec-8] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:17:52 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:52 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:52 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:52 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:17:52 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:17:52 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:21:51 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:21:52 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:21:54 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:22:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:02 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:02 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:22:02 [http-nio-8080-exec-5] INFO  com.example.controller.LoginServlet - Login successful for user: admin
+2025-01-07 16:22:02 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:22:02 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:02 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:02 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:02 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:02 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:02 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:24 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:24 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:24 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:24 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:24 [http-nio-8080-exec-10] INFO  com.example.controller.UploadServlet - Received upload request. Admin ID: 1
+2025-01-07 16:22:24 [http-nio-8080-exec-10] INFO  com.example.controller.UploadServlet - File upload success for file: data1.csv
+2025-01-07 16:22:24 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:22:24 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:24 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:24 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:24 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:24 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:24 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:36 [http-nio-8080-exec-3] INFO  com.example.controller.LogoutServlet - User is logging out. Invalidating session: B49F280258F0824B6D373541E76F3212
+2025-01-07 16:22:36 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:22:36 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:47:33 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:47:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:47:49 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:47:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:47:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:47:54 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:47:54 [http-nio-8080-exec-6] WARN  com.example.controller.LoginServlet - Login failed for user: admin
+2025-01-07 16:50:26 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:50:26 [http-nio-8080-exec-8] INFO  com.example.controller.LoginServlet - Login successful for user: admin
+2025-01-07 16:50:26 [http-nio-8080-exec-10] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:50:26 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:26 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:26 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:26 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:26 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:26 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:44 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:44 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:44 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:44 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:44 [http-nio-8080-exec-2] INFO  com.example.controller.UploadServlet - Received upload request. Admin ID: 1
+2025-01-07 16:50:44 [http-nio-8080-exec-2] INFO  com.example.controller.UploadServlet - File upload success for file: data1.csv
+2025-01-07 16:50:44 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:50:44 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:44 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:44 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:44 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:44 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:44 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:52 [http-nio-8080-exec-4] INFO  com.example.controller.LogoutServlet - User is logging out. Invalidating session: AAF6FF264C0622175FF0404ADA342B61
+2025-01-07 16:50:52 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 16:50:52 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:31 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:31 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:37 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:40 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:57 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:05:57 [http-nio-8080-exec-9] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:06:10 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_table` (`id` int not null auto_increment, `user_id` varchar(20) default null, `usage_value` int default null, `epoch` bigint default null, primary key (`id`));
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:06:10 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:18:37 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:18:37 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:18:37 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:18:37 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:18:37 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:18:38 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:18:38 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:18:38 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:18:38 [http-nio-8080-exec-3] ERROR com.example.controller.ChartDataServlet - Error during table creation
+java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'index `idx_user_epoch` (`user_id`, `epoch`)' at line 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at org.apache.tomcat.dbcp.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:182) ~[tomcat-dbcp.jar:10.1.34]
+	at org.apache.tomcat.dbcp.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:182) ~[tomcat-dbcp.jar:10.1.34]
+	at com.example.controller.ChartDataServlet.init(ChartDataServlet.java:48) ~[classes/:?]
+	at jakarta.servlet.GenericServlet.init(GenericServlet.java:143) ~[servlet-api.jar:6.0]
+	at jakarta.servlet.http.HttpServlet.init(HttpServlet.java:121) ~[servlet-api.jar:6.0]
+	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:837) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:794) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:575) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:115) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:663) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[catalina.jar:10.1.34]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-util.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-util.jar:10.1.34]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-util.jar:10.1.34]
+	at java.lang.Thread.run(Thread.java:1575) [?:?]
+2025-01-07 17:20:42 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:20:43 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:20:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:20:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:20:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:20:43 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:20:43 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:20:43 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:20:43 [http-nio-8080-exec-3] ERROR com.example.controller.ChartDataServlet - Error during table creation
+java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at org.apache.tomcat.dbcp.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:182) ~[tomcat-dbcp.jar:10.1.34]
+	at org.apache.tomcat.dbcp.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:182) ~[tomcat-dbcp.jar:10.1.34]
+	at com.example.controller.ChartDataServlet.init(ChartDataServlet.java:48) ~[classes/:?]
+	at jakarta.servlet.GenericServlet.init(GenericServlet.java:143) ~[servlet-api.jar:6.0]
+	at jakarta.servlet.http.HttpServlet.init(HttpServlet.java:121) ~[servlet-api.jar:6.0]
+	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:837) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:794) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:575) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:115) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:663) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[catalina.jar:10.1.34]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-util.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-util.jar:10.1.34]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-util.jar:10.1.34]
+	at java.lang.Thread.run(Thread.java:1575) [?:?]
+2025-01-07 17:23:06 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: CREATE TABLE IF NOT EXISTS `usage_table` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,`user_id` VARCHAR(15) DEFAULT NULL,`usage_value` INT DEFAULT NULL,`epoch` BIGINT DEFAULT NULL,UNIQUE(`user_id`, `epoch`),INDEX `idx_user_epoch` (`user_id`, `epoch`));
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:23:06 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:30:04 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:30:04 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:30:04 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:30:04 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:30:04 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:30:04 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:30:05 [http-nio-8080-exec-3] WARN  com.example.controller.ChartDataServlet - Query not found for table creation.
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:30:05 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:30:43 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:30:43 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:30:43 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:30:43 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:30:43 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:30:43 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:30:43 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:30:43 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:30:43 [http-nio-8080-exec-2] ERROR com.example.controller.ChartDataServlet - Error during table creation
+java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at org.apache.tomcat.dbcp.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:182) ~[tomcat-dbcp.jar:10.1.34]
+	at org.apache.tomcat.dbcp.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:182) ~[tomcat-dbcp.jar:10.1.34]
+	at com.example.controller.ChartDataServlet.init(ChartDataServlet.java:48) ~[classes/:?]
+	at jakarta.servlet.GenericServlet.init(GenericServlet.java:143) ~[servlet-api.jar:6.0]
+	at jakarta.servlet.http.HttpServlet.init(HttpServlet.java:121) ~[servlet-api.jar:6.0]
+	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:837) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:794) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:575) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:115) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:663) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[catalina.jar:10.1.34]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[catalina.jar:10.1.34]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-coyote.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-util.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-util.jar:10.1.34]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-util.jar:10.1.34]
+	at java.lang.Thread.run(Thread.java:1575) [?:?]
+2025-01-07 17:31:34 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`));
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:31:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:31:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:31:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:31:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:43:15 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:43:16 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:45:37 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:45:42 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:45:42 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:45:42 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:45:42 [http-nio-8080-exec-8] WARN  com.example.controller.LoginServlet - Login failed for user: admin
+2025-01-07 17:45:47 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:45:47 [http-nio-8080-exec-9] WARN  com.example.controller.LoginServlet - Login failed for user: admin
+2025-01-07 17:46:03 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:46:03 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-07 17:46:03 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-07 17:46:03 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-07 17:46:03 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:46:03 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:46:03 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-07 17:46:03 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:46:04 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:46:05 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:46:11 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:46:11 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:46:11 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:46:11 [http-nio-8080-exec-6] WARN  com.example.controller.LoginServlet - Login failed for user: admin
+2025-01-07 17:46:26 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:46:26 [http-nio-8080-exec-7] WARN  com.example.controller.LoginServlet - Login failed for user: admin
+2025-01-07 17:47:53 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:47:53 [http-nio-8080-exec-9] INFO  com.example.controller.LoginServlet - Login successful for user: admin
+2025-01-07 17:47:53 [http-nio-8080-exec-1] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:47:53 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:47:53 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:47:53 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:47:53 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:47:53 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:47:53 [http-nio-8080-exec-1] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:28 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:28 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:28 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:28 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:28 [http-nio-8080-exec-4] INFO  com.example.controller.UploadServlet - Received upload request. Admin ID: 1
+2025-01-07 17:48:28 [http-nio-8080-exec-4] INFO  com.example.controller.UploadServlet - File upload success for file: data1.csv
+2025-01-07 17:48:28 [http-nio-8080-exec-6] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:48:28 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:29 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:29 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:29 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:29 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:29 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:40 [http-nio-8080-exec-8] INFO  com.example.controller.UploadServlet - Received upload request. Admin ID: 1
+2025-01-07 17:48:40 [http-nio-8080-exec-8] INFO  com.example.controller.UploadServlet - File upload success for file: data1.csv
+2025-01-07 17:48:40 [http-nio-8080-exec-10] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:48:40 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:40 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:40 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:40 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:40 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:40 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:47 [http-nio-8080-exec-2] INFO  com.example.controller.UploadServlet - Received upload request. Admin ID: 1
+2025-01-07 17:48:47 [http-nio-8080-exec-2] INFO  com.example.controller.UploadServlet - File upload success for file: data1.csv
+2025-01-07 17:48:47 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:48:47 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:47 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:47 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:47 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:47 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:47 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:50 [http-nio-8080-exec-5] INFO  com.example.controller.LogoutServlet - User is logging out. Invalidating session: D7C0630F9E89535B43DF9B5736B57815
+2025-01-07 17:48:50 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-07 17:48:50 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:45 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 07:13:46 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 07:13:46 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 07:13:46 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 07:13:46 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:47 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:53 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:53 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:54 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 07:13:56 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:18:34 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:18:34 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 09:18:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 09:18:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 09:18:34 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:18:35 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:19:48 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:19:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:20 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:21 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 09:53:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 09:53:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 09:53:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:22 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:23 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:28 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:28 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:28 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:28 [http-nio-8080-exec-5] WARN  com.example.controller.AuthenticationServlet - Login failed for user: admin
+2025-01-09 09:53:33 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:33 [http-nio-8080-exec-6] INFO  com.example.controller.AuthenticationServlet - Login successful for user: admin
+2025-01-09 09:53:33 [http-nio-8080-exec-8] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:53:33 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:33 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:33 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:33 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:33 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:33 [http-nio-8080-exec-8] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:36 [http-nio-8080-exec-10] INFO  com.example.controller.AuthenticationServlet - User is logging out. Invalidating session: 939621353DF1A7FB0BBCC8361A5A3B50
+2025-01-09 09:53:36 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:36 [http-nio-8080-exec-2] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:38 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:43 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:48 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:48 [http-nio-8080-exec-5] INFO  com.example.controller.AuthenticationServlet - Login successful for user: admin
+2025-01-09 09:53:48 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:53:48 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:48 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:48 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:48 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:48 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:48 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:50 [http-nio-8080-exec-8] INFO  com.example.controller.AuthenticationServlet - User is logging out. Invalidating session: E6C994C4BE8A6CFE2FA9515EFCA726F1
+2025-01-09 09:53:50 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:53:50 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:58:32 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:58:32 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:58:34 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:39 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:58:39 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:58:39 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:39 [http-nio-8080-exec-5] WARN  com.example.controller.AuthenticationServlet - Login failed for user: null
+2025-01-09 09:58:42 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:42 [http-nio-8080-exec-6] WARN  com.example.controller.AuthenticationServlet - Login failed for user: null
+2025-01-09 09:58:43 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:43 [http-nio-8080-exec-7] WARN  com.example.controller.AuthenticationServlet - Login failed for user: null
+2025-01-09 09:58:44 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:45 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:46 [http-nio-8080-exec-10] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:47 [http-nio-8080-exec-1] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:47 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:48 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:52 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:55 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:56 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:56 [http-nio-8080-exec-8] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:57 [http-nio-8080-exec-9] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:58:57 [http-nio-8080-exec-10] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:59:12 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:59:13 [http-nio-8080-exec-4] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:59:14 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:59:20 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 09:59:20 [http-nio-8080-exec-6] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 09:59:20 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:59:20 [http-nio-8080-exec-6] WARN  com.example.controller.AuthenticationServlet - Login failed for user: null
+2025-01-09 09:59:25 [http-nio-8080-exec-7] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 09:59:25 [http-nio-8080-exec-7] WARN  com.example.controller.AuthenticationServlet - Login failed for user: null
+2025-01-09 10:03:54 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:03:54 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:03:56 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:06:20 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:06:20 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 10:06:20 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 10:06:20 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 10:06:20 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:06:21 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:06:22 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:07:11 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:07:11 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 10:07:11 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 10:07:11 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 10:07:11 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:07:11 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:07:11 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:07:12 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:07:17 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:07:26 [http-nio-8080-exec-6] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:08:14 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:08:14 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Initializing ChartDataServlet...
+2025-01-09 10:08:14 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully loaded dbconfig.properties
+2025-01-09 10:08:14 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Successfully initialized JNDI DataSource
+2025-01-09 10:08:14 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `admin` (`admin_id` int not null auto_increment, `username` varchar(50) not null, `password` varchar(255) not null, `email` VARCHAR(100) default null, `created_at` timestamp null default current_timestamp, primary key (`admin_id`), unique key `username` (`username`), unique key `email` (`email`));
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `upload_metadata` (`upload_id` int not null auto_increment, `admin_id` int default null, `upload_date` timestamp null default current_timestamp, `file_name` varchar(255) default null, `records_inserted` int default null, `records_updated` int default null, `records_discarded` int default null, `status` varchar(50) default 'PENDING', primary key (`upload_id`), key `admin_id` (`admin_id`), constraint `upload_metadata_ibfk_1` foreign key (`admin_id`) references `admin` (`admin_id`) on delete set null);
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Executed table creation query: create table if not exists `usage_data` (`id` int not null auto_increment primary key,`user_id` varchar(15) default null,`usage_value` int default null,`epoch` bigint default null,unique(`user_id`, `epoch`));
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:15 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:16 [http-nio-8080-exec-4] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:08:22 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:22 [http-nio-8080-exec-5] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:22 [http-nio-8080-exec-5] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:08:22 [http-nio-8080-exec-5] INFO  com.example.controller.AuthenticationServlet - Login successful for user: admin
+2025-01-09 10:08:22 [http-nio-8080-exec-7] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 10:08:22 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:22 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:22 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:22 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:22 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:22 [http-nio-8080-exec-7] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:42 [http-nio-8080-exec-10] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 10:08:42 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:42 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:42 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:42 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:42 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:42 [http-nio-8080-exec-10] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:49 [http-nio-8080-exec-1] INFO  com.example.controller.AuthenticationServlet - User is logging out. Invalidating session: 68F54F6A2CB52A401D476399F460D103
+2025-01-09 10:08:49 [http-nio-8080-exec-2] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.filter.RateLimitingFilter - Request allowed for IP: 127.0.0.1
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.controller.ChartDataServlet - Handling POST request for chart data.
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Establishing database connection...
+2025-01-09 10:08:49 [http-nio-8080-exec-3] INFO  com.example.util.DatabaseConnection - Database connection established successfully.
